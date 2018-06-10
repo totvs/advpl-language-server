@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "outDir": "out",
+        "moduleResolution": "node",
+        "module": "commonjs",
+        "sourceMap": true,
+        "rootDir": "src",
+		"lib": [ "es6" ],
+        "experimentalDecorators" :true
+    },
+    "include": [
+		"src"
+	],
+    "exclude": [
+        "node_modules",
+        ".vscode-test"
+    ]
+}
