@@ -1,0 +1,5 @@
+STATIC __oCache := Nil
+FUNCTION Simples_function(OOWNER )
+LOCAL NX := 10
+CONOUT(NX)
+RETURN

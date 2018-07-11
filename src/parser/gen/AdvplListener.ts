@@ -1,4 +1,4 @@
-// Generated from ./src/grammar/Advpl.g4 by ANTLR 4.6-SNAPSHOT
+// Generated from ./src/parser/grammar/Advpl.g4 by ANTLR 4.6-SNAPSHOT
 
 
 import { ParseTreeListener } from 'antlr4ts/tree/ParseTreeListener';
