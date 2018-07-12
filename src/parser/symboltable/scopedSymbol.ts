@@ -5,9 +5,19 @@ import { IType } from "./type";
 
 export abstract class ScopedSymbol extends AdvplSymbol implements IScope {
     protected enclosingScope: IScope;
+    protected children: IScope[] = [];
+
     constructor(name: string, retType?: IType, enclosingScope?: IScope ) {
         super(name, retType);
         this.enclosingScope = enclosingScope;
+    }
+    public addChild(child: IScope) {
+        this.children.push(child);
+    }
+    public toString() {
+        let ret = "";
+        Object.keys(this.children).forEach( (key) => ret += this.children[key].toString());
+        return ret + "\n";
     }
     public resolve(name: string): AdvplSymbol {
         const member = this.getMembers();

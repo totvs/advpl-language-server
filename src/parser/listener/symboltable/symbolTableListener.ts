@@ -1,9 +1,10 @@
 import { ParserRuleContext, Token } from "antlr4ts";
 import { AdvplListener } from "../../gen/AdvplListener";
-import { BlockContext, FormalParameterContext, FuncDeclarationContext, FunctionDefinitionContext,
-    LinePreProcessorContext, ProgramContext, StaticVariableContext } from "../../gen/AdvplParser";
+import { FormalParameterContext, FuncDeclarationContext, FunctionDefinitionContext,
+    LinePreProcessorContext, LocalVariableDeclarationStatementContext,
+    ProgramContext, StaticVariableContext } from "../../gen/AdvplParser";
 import { AdvplSymbol } from "../../symboltable/advplSymbol";
-import { AdvplVisibility } from "../../symboltable/advplVisibility";
+import { AdvplVisibility, antlrToAdvplVisibility } from "../../symboltable/advplVisibility";
 import { FunctionSymbol } from "../../symboltable/functionsSymbol";
 import { LocalScope } from "../../symboltable/localScope";
 import { IScope } from "../../symboltable/scope";
@@ -17,7 +18,10 @@ export class SymbolTableListener implements AdvplListener {
     protected problems: Problem[] = [];
     protected filename: string;
     protected sourceLine: number;
-
+    protected scopes: Map<ParserRuleContext, IScope> = new Map();
+    public saveScope(ctx: ParserRuleContext, scope: IScope): void {
+        this.scopes.set(ctx, scope);
+    }
     public async debug_tblsymb() {
         console.log(this.symtab.toString());
     }
@@ -74,22 +78,42 @@ export class SymbolTableListener implements AdvplListener {
         const functionSymbol = new FunctionSymbol(functionName, null, this.currentScope);
         functionSymbol.setStartFunctionPos(ctx.start.startIndex);
         functionSymbol.setStartFunctionPos(ctx.stop.stopIndex);
+        const mfc = ctx.modifiersFunction(); // ModifiersFunctionContext
+        if ( mfc !== undefined) {
+            functionSymbol.setVisibility(antlrToAdvplVisibility(mfc.start.type));
+        } else {
+            functionSymbol.setVisibility(AdvplVisibility.FUNCTION);
+        }
+
         this.currentScope.define(functionSymbol);
         this.currentScope = functionSymbol;
+        this.saveScope(ctx, this.currentScope);
     }
     exitFuncDeclaration(ctx: FuncDeclarationContext) {
         this.currentScope = this.currentScope.getEnclosingScope();
     }
     exitFormalParameter(ctx: FormalParameterContext) {
-        this.defineVar(AdvplVisibility.ARGUMENT, ctx.identifier().start, ctx);
+        this.defineVar(AdvplVisibility.LOCAL, ctx.identifier().start, ctx);
         if (this.currentScope instanceof FunctionSymbol) {
             console.log(ctx.identifier().text);
         }
     }
-    enterBlock(ctx: BlockContext) {
-        this.currentScope = new LocalScope(this.currentScope);
+    /*enterBlock(ctx: BlockContext) {
+
     }
     exitBlock(ctx: BlockContext) {
+      //  this.genericExit();
+    }*/
+    enterLocalVariableDeclarationStatement(ctx: LocalVariableDeclarationStatementContext) {
+        const scope = new LocalScope(this.currentScope);
+        this.currentScope.addChild(scope);
+        this.currentScope = scope;
+    }
+    exitLocalVariableDeclarationStatement(ctx: LocalVariableDeclarationStatementContext) {
+        const expressions = ctx.expression();
+        for ( const element of expressions) {
+            this.defineVar(AdvplVisibility.LOCAL, element.start, ctx);
+        }
         this.genericExit();
     }
 

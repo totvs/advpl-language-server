@@ -2,6 +2,7 @@ import { IHashSymbol } from "./ihashsymbol";
 import { IScope } from "./scope";
 import { ScopedSymbol } from "./scopedSymbol";
 import { IType } from "./type";
+import { AdvplVisibility } from "./advplVisibility";
 export class FunctionSymbol extends ScopedSymbol {
     protected startFunctionPos: number;
     protected endFunctionPos: number;
@@ -38,8 +39,11 @@ export class FunctionSymbol extends ScopedSymbol {
         this.endFunctionPos = endFunctionPos;
     }
     public toString(): string {
-        let ret =  "[FunctionSymbol]";
-        ret += "[Arguments]";
+        let ret =  "[FunctionSymbol ";
+        // if ( this.visibility !== undefined ) {
+        ret +=  "<" + this.name + ":" + AdvplVisibility[this.visibility]  + ">\n";
+        // }
+        ret += "][Arguments]";
         Object.keys(this.arguments).forEach( (key) => ret += this.arguments[key].toString());
         ret += "[Internal Symbol]";
         ret += super.toString();

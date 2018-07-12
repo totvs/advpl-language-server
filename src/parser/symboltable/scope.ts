@@ -3,6 +3,9 @@ import { AdvplSymbol } from "./advplSymbol";
  * Baseado no "Language Implementation Patterns"
  */
 export interface IScope {
+
+    addChild?(child: IScope);
+
     getScopeName(): string;
     /**
      * Where to look next for symbols; superclass or enclosing scope
