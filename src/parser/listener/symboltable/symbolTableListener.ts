@@ -1,10 +1,12 @@
 import { ParserRuleContext, Token } from "antlr4ts";
 import { AdvplListener } from "../../gen/AdvplListener";
-import { FormalParameterContext, FuncDeclarationContext, FunctionDefinitionContext,
-    LinePreProcessorContext, LocalVariableDeclarationStatementContext,
+
+import { ClassDeclarationContext, DataDefinitionContext, FormalParameterContext, FuncDeclarationContext,
+    FunctionDefinitionContext, LinePreProcessorContext, LocalVariableDeclarationStatementContext,
     ProgramContext, StaticVariableContext } from "../../gen/AdvplParser";
 import { AdvplSymbol } from "../../symboltable/advplSymbol";
 import { AdvplVisibility, antlrToAdvplVisibility } from "../../symboltable/advplVisibility";
+import { ClassSymbol } from "../../symboltable/classSymbol";
 import { FunctionSymbol } from "../../symboltable/functionsSymbol";
 import { LocalScope } from "../../symboltable/localScope";
 import { IScope } from "../../symboltable/scope";
@@ -29,11 +31,14 @@ export class SymbolTableListener implements AdvplListener {
         this.currentScope = this.currentScope.getEnclosingScope(); // pop scope
     }
 
-    public defineVar(vis: AdvplVisibility , nameToken: Token, ctx: ParserRuleContext ): AdvplSymbol {
+    public defineVar(vis: AdvplVisibility , nameToken: Token, ctx: ParserRuleContext, rawType?: string ): AdvplSymbol {
         const varName =  nameToken.text.toUpperCase();
         if (!this.currentScope.existLocalScope(varName)) {
             const variable = new VariableSymbol(nameToken.text);
             variable.setVisibility(vis);
+            if (rawType !== undefined ) {
+                variable.setRawType(rawType);
+            }
             this.currentScope.define(variable);
             return variable;
         } else {
@@ -74,8 +79,16 @@ export class SymbolTableListener implements AdvplListener {
     }*/
 
     enterFunctionDefinition(ctx: FunctionDefinitionContext) {
-        const functionName = ctx.identifier().text;
-        const functionSymbol = new FunctionSymbol(functionName, null, this.currentScope);
+        let functionName = ctx.identifier().text;
+        let className;
+        if (functionName.startsWith("___")) {
+         const posSecUnder = functionName.indexOf("___", 3);
+         if ( posSecUnder > 0 ) {
+            className = functionName.substr(3, posSecUnder - 3 );
+            functionName = functionName.substr(posSecUnder + 4);
+         }
+        }
+        const functionSymbol = new FunctionSymbol(functionName, this.currentScope);
         functionSymbol.setStartFunctionPos(ctx.start.startIndex);
         functionSymbol.setStartFunctionPos(ctx.stop.stopIndex);
         const mfc = ctx.modifiersFunction(); // ModifiersFunctionContext
@@ -98,6 +111,15 @@ export class SymbolTableListener implements AdvplListener {
             console.log(ctx.identifier().text);
         }
     }
+    exitDataDefinition(ctx: DataDefinitionContext) {
+        const dataType = ctx.wsDataType();
+        if (dataType !== undefined) {
+            this.defineVar(AdvplVisibility.DATA, ctx.identifier().start, ctx, dataType.text);
+        } else {
+            this.defineVar(AdvplVisibility.DATA, ctx.identifier().start, ctx);
+        }
+
+    }
     /*enterBlock(ctx: BlockContext) {
 
     }
@@ -114,6 +136,19 @@ export class SymbolTableListener implements AdvplListener {
         for ( const element of expressions) {
             this.defineVar(AdvplVisibility.LOCAL, element.start, ctx);
         }
+        this.genericExit();
+    }
+    enterClassDeclaration(ctx: ClassDeclarationContext) {
+        const className = ctx.identifier().text;
+        const fromclass = ctx.fromClass();
+        const classSymbol = new ClassSymbol(className, this.currentScope,
+            fromclass !== undefined ? fromclass.identifier().text : undefined);
+        this.currentScope.define(classSymbol);
+        this.saveScope(ctx, classSymbol);
+        this.currentScope = classSymbol;
+    }
+
+    exitClassDeclaration(ctx: ClassDeclarationContext) {
         this.genericExit();
     }
 

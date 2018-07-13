@@ -7,7 +7,8 @@ export enum AdvplVisibility {
     PUBLIC,
     MAIN,
     USER,
-    FUNCTION}
+    FUNCTION,
+    DATA}
 export function antlrToAdvplVisibility( token: number) {
     switch (token) {
         case AdvplParser.STATIC : return AdvplVisibility.STATIC;

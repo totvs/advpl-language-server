@@ -7,8 +7,8 @@ export abstract class ScopedSymbol extends AdvplSymbol implements IScope {
     protected enclosingScope: IScope;
     protected children: IScope[] = [];
 
-    constructor(name: string, retType?: IType, enclosingScope?: IScope ) {
-        super(name, retType);
+    constructor(name: string, enclosingScope?: IScope ) {
+        super(name);
         this.enclosingScope = enclosingScope;
     }
     public addChild(child: IScope) {

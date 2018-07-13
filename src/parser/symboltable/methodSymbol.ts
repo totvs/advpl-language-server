@@ -7,8 +7,8 @@ export class MethodSymbol extends ScopedSymbol {
 
     protected arguments: IHashSymbol = {};
     private className: string;
-    constructor(name: string, retType: IType, parent: IScope ) {
-        super(name, retType, parent);
+    constructor(name: string, parent: IScope ) {
+        super(name, parent);
     }
     public getClassName(): string {
         return this.className;

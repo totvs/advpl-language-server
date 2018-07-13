@@ -5,14 +5,15 @@ import { ScopedSymbol } from "./scopedSymbol";
 import { IType } from "./type";
 
 export class ClassSymbol extends ScopedSymbol implements IScope, IType {
-    private superClass: ClassSymbol;
+    private superClassSymbol: ClassSymbol;
+    private superClassName: string;
     private members: IHashSymbol = {};
-    constructor(name: string, enclosingScope: IScope , superClass: ClassSymbol ) {
-        super(name,  null , enclosingScope);
-        this.superClass = superClass;
+    constructor(name: string, enclosingScope: IScope , superClassName: string ) {
+        super(name, enclosingScope);
+        this.superClassName = superClassName;
     }
     public getParentScope(): IScope {
-        if (this.superClass === undefined) {
+        if (this.superClassSymbol === undefined) {
             return this.enclosingScope;
         }
         return this.getEnclosingScope();
@@ -21,8 +22,8 @@ export class ClassSymbol extends ScopedSymbol implements IScope, IType {
         if (this.members.hasOwnProperty(name)) {
             return this.members[name];
         }
-        if (this.superClass !== undefined ) {
-            return this.superClass.resolveMember(name);
+        if (this.superClassSymbol !== undefined ) {
+            return this.superClassSymbol.resolveMember(name);
         }
         return undefined;
     }
@@ -33,6 +34,13 @@ export class ClassSymbol extends ScopedSymbol implements IScope, IType {
         this.members[name] = syb;
     }
     public toString(): string {
-        return "class " + this.name;
+        let ret =  "[class " + this.name;
+        if (this.superClassName !== undefined) {
+            ret += " extends "  + this.superClassName;
+        }
+        ret += "][Datas ->";
+        Object.keys(this.members).forEach( (key) => ret += this.members[key].toString());
+        ret += "]";
+        return ret;
     }
 }

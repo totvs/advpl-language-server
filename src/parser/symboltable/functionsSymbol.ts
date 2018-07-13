@@ -1,16 +1,17 @@
+import { AdvplVisibility } from "./advplVisibility";
 import { IHashSymbol } from "./ihashsymbol";
 import { IScope } from "./scope";
 import { ScopedSymbol } from "./scopedSymbol";
 import { IType } from "./type";
-import { AdvplVisibility } from "./advplVisibility";
+
 export class FunctionSymbol extends ScopedSymbol {
     protected startFunctionPos: number;
     protected endFunctionPos: number;
 
     protected arguments: IHashSymbol = {};
     private className: string;
-    constructor(name: string, retType: IType, parent: IScope ) {
-        super(name, retType, parent);
+    constructor(name: string, parent: IScope ) {
+        super(name, parent);
     }
     public getClassName(): string {
         return this.className;

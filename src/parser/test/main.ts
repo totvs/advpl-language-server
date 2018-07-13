@@ -9,7 +9,7 @@ class Startup {
     public static async main() {
 
         // Create the lexer and parser
-        fs.readFile("C:\\Totvs\\vscode\\advpl-language-server\\src\\parser\\test\\resources\\simples.ppo",
+        fs.readFile("C:\\Totvs\\vscode\\advpl-language-server\\src\\parser\\test\\resources\\class1.ppo",
         async (err, data) => {
             if (err) {
                 throw err;
