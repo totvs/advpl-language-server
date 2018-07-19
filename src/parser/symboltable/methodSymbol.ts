@@ -1,14 +1,15 @@
-
+import { FunctionSymbol } from "./functionsSymbol";
 import { IHashSymbol } from "./ihashsymbol";
 import { IScope } from "./scope";
-import { ScopedSymbol } from "./scopedSymbol";
-import { IType } from "./type";
-export class MethodSymbol extends ScopedSymbol {
 
-    protected arguments: IHashSymbol = {};
-    private className: string;
-    constructor(name: string, parent: IScope ) {
+import { IType } from "./type";
+
+export class MethodSymbol extends FunctionSymbol {
+
+    className: string;
+    constructor(className: string, name: string, parent: IScope ) {
         super(name, parent);
+        this.className = className;
     }
     public getClassName(): string {
         return this.className;
@@ -16,10 +17,11 @@ export class MethodSymbol extends ScopedSymbol {
     public setClassName(s: string): void {
         this.className = s ;
     }
-    public getName(): string {
-        return this.name + "(" + JSON.stringify(this.arguments) + ")";
+    public toString(): string {
+        let ret =  "[Method from class "  + this.className;
+        ret += super.toString();
+        ret += "]";
+        return ret;
     }
-    public getMembers(): IHashSymbol {
-        return this.arguments;
-    }
+
 }

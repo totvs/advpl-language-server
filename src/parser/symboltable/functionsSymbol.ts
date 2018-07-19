@@ -9,16 +9,10 @@ export class FunctionSymbol extends ScopedSymbol {
     protected endFunctionPos: number;
 
     protected arguments: IHashSymbol = {};
-    private className: string;
     constructor(name: string, parent: IScope ) {
         super(name, parent);
     }
-    public getClassName(): string {
-        return this.className;
-    }
-    public setClassName(s: string): void {
-        this.className = s ;
-    }
+
     public getName(): string {
         return this.name + "(" + JSON.stringify(this.arguments) + ")";
     }

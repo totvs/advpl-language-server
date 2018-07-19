@@ -4,6 +4,7 @@ import fs = require("fs");
 import { AdvplLexer } from "../gen/AdvplLexer";
 import { AdvplParser } from "../gen/AdvplParser";
 import { SymbolTableListener } from "../listener/symboltable/symbolTableListener";
+import { NoCaseANTLRInputStream } from "../util/NoCaseANTLRInputStream";
 
 class Startup {
     public static async main() {
@@ -15,7 +16,7 @@ class Startup {
                 throw err;
             }
             // console.log(data);
-            const inputStream = new ANTLRInputStream(data.toString("utf8"));
+            const inputStream = new NoCaseANTLRInputStream(data.toString("utf8"));
             const lexer = new AdvplLexer(inputStream);
             const tokenStream = new CommonTokenStream(lexer);
             const parser = new AdvplParser(tokenStream);

@@ -1,44 +1,44 @@
-#LINE 1 "C:\TOTVS\VSCODE\WK_LIB_MASTER\ADVPLFRAMEWORK\SRC\INCLUDE\PROTHEUS.CH"
-#LINE 1 "C:\TOTVS\VSCODE\WK_LIB_MASTER\ADVPLFRAMEWORK\SRC\INCLUDE\DIALOG.CH"
-#LINE 28 "PROTHEUS.CH"
-#LINE 1 "C:\TOTVS\VSCODE\WK_LIB_MASTER\ADVPLFRAMEWORK\SRC\INCLUDE\FONT.CH"
-#LINE 29 "PROTHEUS.CH"
-#LINE 1 "C:\TOTVS\VSCODE\WK_LIB_MASTER\ADVPLFRAMEWORK\SRC\INCLUDE\PTMENU.CH"
-#LINE 31 "PROTHEUS.CH"
-#LINE 1 "C:\TOTVS\VSCODE\WK_LIB_MASTER\ADVPLFRAMEWORK\SRC\INCLUDE\PRINT.CH"
-#LINE 33 "PROTHEUS.CH"
-#LINE 1 "C:\TOTVS\VSCODE\WK_LIB_MASTER\ADVPLFRAMEWORK\SRC\INCLUDE\COLORS.CH"
-#LINE 35 "PROTHEUS.CH"
-#LINE 1 "C:\TOTVS\VSCODE\WK_LIB_MASTER\ADVPLFRAMEWORK\SRC\INCLUDE\FOLDER.CH"
-#LINE 37 "PROTHEUS.CH"
-#LINE 1 "C:\TOTVS\VSCODE\WK_LIB_MASTER\ADVPLFRAMEWORK\SRC\INCLUDE\MSOBJECT.CH"
-#LINE 38 "PROTHEUS.CH"
-#LINE 1 "C:\TOTVS\VSCODE\WK_LIB_MASTER\ADVPLFRAMEWORK\SRC\INCLUDE\VKEY.CH"
-#LINE 42 "PROTHEUS.CH"
-#LINE 1 "C:\TOTVS\VSCODE\WK_LIB_MASTER\ADVPLFRAMEWORK\SRC\INCLUDE\WINAPI.CH"
-#LINE 44 "PROTHEUS.CH"
-#LINE 1 "C:\TOTVS\VSCODE\WK_LIB_MASTER\ADVPLFRAMEWORK\SRC\INCLUDE\FWCOMMAND.CH"
-#LINE 47 "PROTHEUS.CH"
-#LINE 1 "C:\TOTVS\VSCODE\WK_LIB_MASTER\ADVPLFRAMEWORK\SRC\INCLUDE\FWCSS.CH"
-#LINE 50 "PROTHEUS.CH"
-#LINE 3 "C:\TOTVS\VSCODE\WK_LIB_MASTER\ADVPLFRAMEWORK\.WORKDIR\TST1.PRW"
-_OBJNEWCLASS( FWFORMFIELDSMODEL ,FWFORMGENERICMODEL )
+#line 1 "c:\totvs\vscode\wk_lib_master\advplframework\src\include\protheus.ch"
+#line 1 "c:\totvs\vscode\wk_lib_master\advplframework\src\include\dialog.ch"
+#line 28 "protheus.ch"
+#line 1 "c:\totvs\vscode\wk_lib_master\advplframework\src\include\font.ch"
+#line 29 "protheus.ch"
+#line 1 "c:\totvs\vscode\wk_lib_master\advplframework\src\include\ptmenu.ch"
+#line 31 "protheus.ch"
+#line 1 "c:\totvs\vscode\wk_lib_master\advplframework\src\include\print.ch"
+#line 33 "protheus.ch"
+#line 1 "c:\totvs\vscode\wk_lib_master\advplframework\src\include\colors.ch"
+#line 35 "protheus.ch"
+#line 1 "c:\totvs\vscode\wk_lib_master\advplframework\src\include\folder.ch"
+#line 37 "protheus.ch"
+#line 1 "c:\totvs\vscode\wk_lib_master\advplframework\src\include\msobject.ch"
+#line 38 "protheus.ch"
+#line 1 "c:\totvs\vscode\wk_lib_master\advplframework\src\include\vkey.ch"
+#line 42 "protheus.ch"
+#line 1 "c:\totvs\vscode\wk_lib_master\advplframework\src\include\winapi.ch"
+#line 44 "protheus.ch"
+#line 1 "c:\totvs\vscode\wk_lib_master\advplframework\src\include\fwcommand.ch"
+#line 47 "protheus.ch"
+#line 1 "c:\totvs\vscode\wk_lib_master\advplframework\src\include\fwcss.ch"
+#line 50 "protheus.ch"
+#line 3 "c:\totvs\vscode\wk_lib_master\advplframework\.workdir\tst1.prw"
+_objnewclass( FWFormFieldsModel ,fwformgenericmodel )
 
-	_OBJCLASSDATA( APRIMARYKEY,ARRAY, , )
-	_OBJCLASSDATA( CORDERBY,CHARACTER, , )
+	_objclassdata( aprimarykey,array, , )
+	_objclassdata( corderby,character, , )
 
-	_OBJCLASSDATA( NDATAID,NUMERIC, , )
+	_objclassdata( ndataid,numeric, , )
 
-	_OBJCLASSDATA( OEVENTHANDLER,OBJECT, , )
+	_objclassdata( oeventhandler,object, , )
 
-	_OBJCLASSMETHOD(NEW,, )
-_OBJENDCLASS( )
+	_objclassmethod(new,, )
+_objendclass( )
 
-FUNCTION ___FWFORMFIELDSMODEL____NEW(CID,OOWNER,OMODEL )
-LOCAL ALOAD     := {}
-LOCAL ASTRUCT   := SELF:OFORMMODELSTRUCT:GETFIELDS()
-LOCAL CID       := SELF:CID
-LOCAL NX        := 0
+function ___fwformfieldsmodel____new(cid,oowner,omodel )
+local aload     := {}
+local astruct   := self:oformmodelstruct:getfields()
+local cid       := self:cid
+local nx        := 0
 
-CONOUT ("FUI")
-RETURN
+conout ("fui")
+return

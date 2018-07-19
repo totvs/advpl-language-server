@@ -9,9 +9,11 @@ import { AdvplVisibility, antlrToAdvplVisibility } from "../../symboltable/advpl
 import { ClassSymbol } from "../../symboltable/classSymbol";
 import { FunctionSymbol } from "../../symboltable/functionsSymbol";
 import { LocalScope } from "../../symboltable/localScope";
+import { MethodSymbol } from "../../symboltable/methodSymbol";
 import { IScope } from "../../symboltable/scope";
 import { SymbolTable } from "../../symboltable/symbolTable";
 import { VariableSymbol } from "../../symboltable/variableSymbol";
+
 import { Problem, ProblemCategory } from "../../util/problem";
 
 export class SymbolTableListener implements AdvplListener {
@@ -21,6 +23,11 @@ export class SymbolTableListener implements AdvplListener {
     protected filename: string;
     protected sourceLine: number;
     protected scopes: Map<ParserRuleContext, IScope> = new Map();
+    protected classInSource: Map<string, ClassSymbol> = new Map();
+    protected functionsInSource: Map<string, FunctionSymbol> = new Map();
+    // Separamos as staticas para ficar mais facil na hora de procurar
+    protected staticFunctionsInSource: Map<string, FunctionSymbol> = new Map();
+
     public saveScope(ctx: ParserRuleContext, scope: IScope): void {
         this.scopes.set(ctx, scope);
     }
@@ -84,18 +91,36 @@ export class SymbolTableListener implements AdvplListener {
         if (functionName.startsWith("___")) {
          const posSecUnder = functionName.indexOf("___", 3);
          if ( posSecUnder > 0 ) {
-            className = functionName.substr(3, posSecUnder - 3 );
+            className = functionName.substr(3, posSecUnder - 3 ).toUpperCase();
             functionName = functionName.substr(posSecUnder + 4);
          }
         }
-        const functionSymbol = new FunctionSymbol(functionName, this.currentScope);
-        functionSymbol.setStartFunctionPos(ctx.start.startIndex);
-        functionSymbol.setStartFunctionPos(ctx.stop.stopIndex);
-        const mfc = ctx.modifiersFunction(); // ModifiersFunctionContext
-        if ( mfc !== undefined) {
-            functionSymbol.setVisibility(antlrToAdvplVisibility(mfc.start.type));
+        let functionSymbol;
+        if (className !== undefined) {
+            functionSymbol = new MethodSymbol(className, functionName, this.currentScope);
+            const classSymbol = this.classInSource.get(className);
+            if (classSymbol !== undefined) {
+                classSymbol.addMember(functionName, functionSymbol);
+                functionSymbol.setStartFunctionPos(ctx.start.startIndex);
+                functionSymbol.setStartFunctionPos(ctx.stop.stopIndex);
+            }
         } else {
-            functionSymbol.setVisibility(AdvplVisibility.FUNCTION);
+            functionSymbol = new FunctionSymbol(functionName, this.currentScope);
+            functionSymbol.setStartFunctionPos(ctx.start.startIndex);
+            functionSymbol.setStartFunctionPos(ctx.stop.stopIndex);
+            const mfc = ctx.modifiersFunction(); // ModifiersFunctionContext
+            if ( mfc !== undefined) {
+                const vis = antlrToAdvplVisibility(mfc.start.type);
+                functionSymbol.setVisibility(vis);
+                if (vis === AdvplVisibility.STATIC) {
+                    this.staticFunctionsInSource.set(functionName, functionSymbol);
+                } else {
+                    this.functionsInSource.set(functionName, functionSymbol);
+                }
+            } else {
+                functionSymbol.setVisibility(AdvplVisibility.FUNCTION);
+                this.functionsInSource.set(functionName, functionSymbol);
+            }
         }
 
         this.currentScope.define(functionSymbol);
@@ -146,6 +171,7 @@ export class SymbolTableListener implements AdvplListener {
         this.currentScope.define(classSymbol);
         this.saveScope(ctx, classSymbol);
         this.currentScope = classSymbol;
+        this.classInSource.set(className.toUpperCase(), classSymbol);
     }
 
     exitClassDeclaration(ctx: ClassDeclarationContext) {
