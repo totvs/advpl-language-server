@@ -9,105 +9,84 @@ import { VarArrayAccessContext } from './AdvplParser';
 import { ParensContext } from './AdvplParser';
 import { ObjectMethodAccessContext } from './AdvplParser';
 import { VarContext } from './AdvplParser';
-import { MacroExecucaoIdentifierContext } from './AdvplParser';
-import { ExpressionListInConcheteContext } from './AdvplParser';
 import { ClassConstructorContext } from './AdvplParser';
 import { MacroExecucaoContext } from './AdvplParser';
 import { IfCallContext } from './AdvplParser';
 import { LitContext } from './AdvplParser';
 import { CallWithAttContext } from './AdvplParser';
+import { NumberCHSayContext } from './AdvplParser';
 import { AssumeContext } from './AdvplParser';
-import { EmbbedExpressionContext } from './AdvplParser';
-import { XCommandExpressionContext } from './AdvplParser';
 import { ArrayOrBlockContext } from './AdvplParser';
-import { LiteralArrobaNilContext } from './AdvplParser';
 import { LiteralStringDuplaContext } from './AdvplParser';
 import { LiteralLogicalContext } from './AdvplParser';
 import { LiteralNilContext } from './AdvplParser';
 import { LiteralNumberContext } from './AdvplParser';
 import { LiteralStringSimplesContext } from './AdvplParser';
-import { BlockInitializerContext } from './AdvplParser';
-import { ArrayInitializerContext } from './AdvplParser';
 import { ExprPrimaryContext } from './AdvplParser';
 import { ExprIncrPosContext } from './AdvplParser';
 import { AssignmentContext } from './AdvplParser';
 import { ExprIncrPreContext } from './AdvplParser';
-import { ExprPrimaryBadFormedContext } from './AdvplParser';
 import { AliasAssignmentContext } from './AdvplParser';
 import { ExprLogicalContext } from './AdvplParser';
 import { ExprCompContext } from './AdvplParser';
 import { ExprPlusContext } from './AdvplParser';
 import { ExprNotContext } from './AdvplParser';
 import { ExprMulContext } from './AdvplParser';
+import { BlockInitializerContext } from './AdvplParser';
+import { ArrayInitializerContext } from './AdvplParser';
 import { ProgramContext } from './AdvplParser';
-import { LinePreProcessorContext } from './AdvplParser';
-import { IdMarkerContext } from './AdvplParser';
-import { SourcesContext } from './AdvplParser';
-import { ModifiersFunctionContext } from './AdvplParser';
-import { StaticVariableContext } from './AdvplParser';
+import { DirectivesContext } from './AdvplParser';
+import { IncludeDeclarationContext } from './AdvplParser';
+import { IfDefContext } from './AdvplParser';
+import { ElseDefContext } from './AdvplParser';
+import { EndifDefContext } from './AdvplParser';
+import { DefineDeclarationContext } from './AdvplParser';
+import { UndefineDeclarationContext } from './AdvplParser';
 import { ClassDeclarationContext } from './AdvplParser';
 import { DataDefinitionContext } from './AdvplParser';
-import { FromClassContext } from './AdvplParser';
 import { MethodDefinitionContext } from './AdvplParser';
-import { DataDescriptionContext } from './AdvplParser';
-import { DataTypeContext } from './AdvplParser';
-import { DataModifiersContext } from './AdvplParser';
 import { ModifiersMethodContext } from './AdvplParser';
-import { WsDataTypeContext } from './AdvplParser';
-import { QsDeclarationContext } from './AdvplParser';
-import { QsMethodContext } from './AdvplParser';
+import { MethodBodyContext } from './AdvplParser';
 import { FuncDeclarationContext } from './AdvplParser';
-import { FunctionDefinitionContext } from './AdvplParser';
 import { SuperCallContext } from './AdvplParser';
+import { InitFuncOrMethodContext } from './AdvplParser';
+import { VariableDeclarationStatementContext } from './AdvplParser';
+import { ModifiersFunctionContext } from './AdvplParser';
 import { FormalParametersContext } from './AdvplParser';
 import { FormalParameterContext } from './AdvplParser';
-import { InitFuncOrMethodContext } from './AdvplParser';
-import { StaticVariableBeforeLocalContext } from './AdvplParser';
-import { LocalVariableDeclarationStatementContext } from './AdvplParser';
+import { IdentifierContext } from './AdvplParser';
 import { StaticVariableDeclarationStatementContext } from './AdvplParser';
-import { PublicVariableDeclarationStatementContext } from './AdvplParser';
 import { PrivateVariableDeclarationStatementContext } from './AdvplParser';
-import { ArrayOrBlockInitializerContext } from './AdvplParser';
-import { BlockParamsContext } from './AdvplParser';
+import { PublicVariableDeclarationStatementContext } from './AdvplParser';
 import { BlockContext } from './AdvplParser';
 import { StatementContext } from './AdvplParser';
-import { BeginSequenceStatementContext } from './AdvplParser';
+import { IfStatementContext } from './AdvplParser';
+import { ForStatementContext } from './AdvplParser';
+import { ForInitContext } from './AdvplParser';
+import { DoStatementContext } from './AdvplParser';
+import { WhileStatementContext } from './AdvplParser';
+import { DocaseStatementContext } from './AdvplParser';
 import { ReturnStatementContext } from './AdvplParser';
-import { ReturnvaluesContext } from './AdvplParser';
-import { StatementExpressionContext } from './AdvplParser';
+import { ExitOrLoopStatementContext } from './AdvplParser';
 import { ExpressionContext } from './AdvplParser';
-import { PrimaryContext } from './AdvplParser';
-import { IdentifierContext } from './AdvplParser';
-import { ArrayAccessContext } from './AdvplParser';
-import { MethodAccessLoopContext } from './AdvplParser';
 import { ArgumentsContext } from './AdvplParser';
 import { ExpressionListContext } from './AdvplParser';
 import { OptionalExpressionContext } from './AdvplParser';
-import { ExpressionListComaContext } from './AdvplParser';
+import { ArrayAccessContext } from './AdvplParser';
+import { MethodAccessLoopContext } from './AdvplParser';
+import { Primary_refContext } from './AdvplParser';
+import { PrimaryContext } from './AdvplParser';
+import { AtxCommandContext } from './AdvplParser';
+import { ArrayOrBlockInitializerContext } from './AdvplParser';
+import { BlockParamsContext } from './AdvplParser';
 import { LiteralContext } from './AdvplParser';
 import { IfFunctioncallContext } from './AdvplParser';
-import { IfStatementContext } from './AdvplParser';
-import { IfConditionContext } from './AdvplParser';
-import { ElseIfConditionContext } from './AdvplParser';
-import { ElseIfBlockContext } from './AdvplParser';
-import { ElseBlockContext } from './AdvplParser';
-import { IfBlockContext } from './AdvplParser';
-import { ForStatementContext } from './AdvplParser';
-import { ForToExpressionContext } from './AdvplParser';
-import { ForStepExpressionContext } from './AdvplParser';
-import { ForBlockContext } from './AdvplParser';
-import { LostExpressionContext } from './AdvplParser';
-import { DoStatementContext } from './AdvplParser';
-import { ExitOrLoopStatementContext } from './AdvplParser';
-import { WhileStatementContext } from './AdvplParser';
-import { WhileConditionContext } from './AdvplParser';
-import { WhileBlockContext } from './AdvplParser';
-import { DocaseStatementContext } from './AdvplParser';
-import { CaseConditionContext } from './AdvplParser';
-import { CaseBlockContext } from './AdvplParser';
-import { OtherWiseBlockContext } from './AdvplParser';
-import { ArrobaDefineContext } from './AdvplParser';
-import { ForInitContext } from './AdvplParser';
+import { ChStatementContext } from './AdvplParser';
+import { DefineChContext } from './AdvplParser';
+import { ActivateChContext } from './AdvplParser';
+import { SetsChContext } from './AdvplParser';
+import { ParamTypeContext } from './AdvplParser';
+import { ClassExceptionContext } from './AdvplParser';
 import { CrlfContext } from './AdvplParser';
 import { CrlfEmptyContext } from './AdvplParser';
 
@@ -196,32 +175,6 @@ export interface AdvplListener extends ParseTreeListener {
 	exitVar?: (ctx: VarContext) => void;
 
 	/**
-	 * Enter a parse tree produced by the `MacroExecucaoIdentifier`
-	 * labeled alternative in `AdvplParser.primary`.
-	 * @param ctx the parse tree
-	 */
-	enterMacroExecucaoIdentifier?: (ctx: MacroExecucaoIdentifierContext) => void;
-	/**
-	 * Exit a parse tree produced by the `MacroExecucaoIdentifier`
-	 * labeled alternative in `AdvplParser.primary`.
-	 * @param ctx the parse tree
-	 */
-	exitMacroExecucaoIdentifier?: (ctx: MacroExecucaoIdentifierContext) => void;
-
-	/**
-	 * Enter a parse tree produced by the `ExpressionListInConchete`
-	 * labeled alternative in `AdvplParser.primary`.
-	 * @param ctx the parse tree
-	 */
-	enterExpressionListInConchete?: (ctx: ExpressionListInConcheteContext) => void;
-	/**
-	 * Exit a parse tree produced by the `ExpressionListInConchete`
-	 * labeled alternative in `AdvplParser.primary`.
-	 * @param ctx the parse tree
-	 */
-	exitExpressionListInConchete?: (ctx: ExpressionListInConcheteContext) => void;
-
-	/**
 	 * Enter a parse tree produced by the `ClassConstructor`
 	 * labeled alternative in `AdvplParser.primary`.
 	 * @param ctx the parse tree
@@ -287,6 +240,19 @@ export interface AdvplListener extends ParseTreeListener {
 	exitCallWithAtt?: (ctx: CallWithAttContext) => void;
 
 	/**
+	 * Enter a parse tree produced by the `NumberCHSay`
+	 * labeled alternative in `AdvplParser.primary`.
+	 * @param ctx the parse tree
+	 */
+	enterNumberCHSay?: (ctx: NumberCHSayContext) => void;
+	/**
+	 * Exit a parse tree produced by the `NumberCHSay`
+	 * labeled alternative in `AdvplParser.primary`.
+	 * @param ctx the parse tree
+	 */
+	exitNumberCHSay?: (ctx: NumberCHSayContext) => void;
+
+	/**
 	 * Enter a parse tree produced by the `Assume`
 	 * labeled alternative in `AdvplParser.primary`.
 	 * @param ctx the parse tree
@@ -300,32 +266,6 @@ export interface AdvplListener extends ParseTreeListener {
 	exitAssume?: (ctx: AssumeContext) => void;
 
 	/**
-	 * Enter a parse tree produced by the `EmbbedExpression`
-	 * labeled alternative in `AdvplParser.primary`.
-	 * @param ctx the parse tree
-	 */
-	enterEmbbedExpression?: (ctx: EmbbedExpressionContext) => void;
-	/**
-	 * Exit a parse tree produced by the `EmbbedExpression`
-	 * labeled alternative in `AdvplParser.primary`.
-	 * @param ctx the parse tree
-	 */
-	exitEmbbedExpression?: (ctx: EmbbedExpressionContext) => void;
-
-	/**
-	 * Enter a parse tree produced by the `XCommandExpression`
-	 * labeled alternative in `AdvplParser.primary`.
-	 * @param ctx the parse tree
-	 */
-	enterXCommandExpression?: (ctx: XCommandExpressionContext) => void;
-	/**
-	 * Exit a parse tree produced by the `XCommandExpression`
-	 * labeled alternative in `AdvplParser.primary`.
-	 * @param ctx the parse tree
-	 */
-	exitXCommandExpression?: (ctx: XCommandExpressionContext) => void;
-
-	/**
 	 * Enter a parse tree produced by the `ArrayOrBlock`
 	 * labeled alternative in `AdvplParser.primary`.
 	 * @param ctx the parse tree
@@ -337,19 +277,6 @@ export interface AdvplListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitArrayOrBlock?: (ctx: ArrayOrBlockContext) => void;
-
-	/**
-	 * Enter a parse tree produced by the `LiteralArrobaNil`
-	 * labeled alternative in `AdvplParser.literal`.
-	 * @param ctx the parse tree
-	 */
-	enterLiteralArrobaNil?: (ctx: LiteralArrobaNilContext) => void;
-	/**
-	 * Exit a parse tree produced by the `LiteralArrobaNil`
-	 * labeled alternative in `AdvplParser.literal`.
-	 * @param ctx the parse tree
-	 */
-	exitLiteralArrobaNil?: (ctx: LiteralArrobaNilContext) => void;
 
 	/**
 	 * Enter a parse tree produced by the `LiteralStringDupla`
@@ -417,32 +344,6 @@ export interface AdvplListener extends ParseTreeListener {
 	exitLiteralStringSimples?: (ctx: LiteralStringSimplesContext) => void;
 
 	/**
-	 * Enter a parse tree produced by the `blockInitializer`
-	 * labeled alternative in `AdvplParser.arrayOrBlockInitializer`.
-	 * @param ctx the parse tree
-	 */
-	enterBlockInitializer?: (ctx: BlockInitializerContext) => void;
-	/**
-	 * Exit a parse tree produced by the `blockInitializer`
-	 * labeled alternative in `AdvplParser.arrayOrBlockInitializer`.
-	 * @param ctx the parse tree
-	 */
-	exitBlockInitializer?: (ctx: BlockInitializerContext) => void;
-
-	/**
-	 * Enter a parse tree produced by the `arrayInitializer`
-	 * labeled alternative in `AdvplParser.arrayOrBlockInitializer`.
-	 * @param ctx the parse tree
-	 */
-	enterArrayInitializer?: (ctx: ArrayInitializerContext) => void;
-	/**
-	 * Exit a parse tree produced by the `arrayInitializer`
-	 * labeled alternative in `AdvplParser.arrayOrBlockInitializer`.
-	 * @param ctx the parse tree
-	 */
-	exitArrayInitializer?: (ctx: ArrayInitializerContext) => void;
-
-	/**
 	 * Enter a parse tree produced by the `ExprPrimary`
 	 * labeled alternative in `AdvplParser.expression`.
 	 * @param ctx the parse tree
@@ -493,19 +394,6 @@ export interface AdvplListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitExprIncrPre?: (ctx: ExprIncrPreContext) => void;
-
-	/**
-	 * Enter a parse tree produced by the `ExprPrimaryBadFormed`
-	 * labeled alternative in `AdvplParser.expression`.
-	 * @param ctx the parse tree
-	 */
-	enterExprPrimaryBadFormed?: (ctx: ExprPrimaryBadFormedContext) => void;
-	/**
-	 * Exit a parse tree produced by the `ExprPrimaryBadFormed`
-	 * labeled alternative in `AdvplParser.expression`.
-	 * @param ctx the parse tree
-	 */
-	exitExprPrimaryBadFormed?: (ctx: ExprPrimaryBadFormedContext) => void;
 
 	/**
 	 * Enter a parse tree produced by the `AliasAssignment`
@@ -586,6 +474,32 @@ export interface AdvplListener extends ParseTreeListener {
 	exitExprMul?: (ctx: ExprMulContext) => void;
 
 	/**
+	 * Enter a parse tree produced by the `blockInitializer`
+	 * labeled alternative in `AdvplParser.arrayOrBlockInitializer`.
+	 * @param ctx the parse tree
+	 */
+	enterBlockInitializer?: (ctx: BlockInitializerContext) => void;
+	/**
+	 * Exit a parse tree produced by the `blockInitializer`
+	 * labeled alternative in `AdvplParser.arrayOrBlockInitializer`.
+	 * @param ctx the parse tree
+	 */
+	exitBlockInitializer?: (ctx: BlockInitializerContext) => void;
+
+	/**
+	 * Enter a parse tree produced by the `arrayInitializer`
+	 * labeled alternative in `AdvplParser.arrayOrBlockInitializer`.
+	 * @param ctx the parse tree
+	 */
+	enterArrayInitializer?: (ctx: ArrayInitializerContext) => void;
+	/**
+	 * Exit a parse tree produced by the `arrayInitializer`
+	 * labeled alternative in `AdvplParser.arrayOrBlockInitializer`.
+	 * @param ctx the parse tree
+	 */
+	exitArrayInitializer?: (ctx: ArrayInitializerContext) => void;
+
+	/**
 	 * Enter a parse tree produced by `AdvplParser.program`.
 	 * @param ctx the parse tree
 	 */
@@ -597,59 +511,81 @@ export interface AdvplListener extends ParseTreeListener {
 	exitProgram?: (ctx: ProgramContext) => void;
 
 	/**
-	 * Enter a parse tree produced by `AdvplParser.linePreProcessor`.
+	 * Enter a parse tree produced by `AdvplParser.directives`.
 	 * @param ctx the parse tree
 	 */
-	enterLinePreProcessor?: (ctx: LinePreProcessorContext) => void;
+	enterDirectives?: (ctx: DirectivesContext) => void;
 	/**
-	 * Exit a parse tree produced by `AdvplParser.linePreProcessor`.
+	 * Exit a parse tree produced by `AdvplParser.directives`.
 	 * @param ctx the parse tree
 	 */
-	exitLinePreProcessor?: (ctx: LinePreProcessorContext) => void;
+	exitDirectives?: (ctx: DirectivesContext) => void;
 
 	/**
-	 * Enter a parse tree produced by `AdvplParser.idMarker`.
+	 * Enter a parse tree produced by `AdvplParser.includeDeclaration`.
 	 * @param ctx the parse tree
 	 */
-	enterIdMarker?: (ctx: IdMarkerContext) => void;
+	enterIncludeDeclaration?: (ctx: IncludeDeclarationContext) => void;
 	/**
-	 * Exit a parse tree produced by `AdvplParser.idMarker`.
+	 * Exit a parse tree produced by `AdvplParser.includeDeclaration`.
 	 * @param ctx the parse tree
 	 */
-	exitIdMarker?: (ctx: IdMarkerContext) => void;
+	exitIncludeDeclaration?: (ctx: IncludeDeclarationContext) => void;
 
 	/**
-	 * Enter a parse tree produced by `AdvplParser.sources`.
+	 * Enter a parse tree produced by `AdvplParser.ifDef`.
 	 * @param ctx the parse tree
 	 */
-	enterSources?: (ctx: SourcesContext) => void;
+	enterIfDef?: (ctx: IfDefContext) => void;
 	/**
-	 * Exit a parse tree produced by `AdvplParser.sources`.
+	 * Exit a parse tree produced by `AdvplParser.ifDef`.
 	 * @param ctx the parse tree
 	 */
-	exitSources?: (ctx: SourcesContext) => void;
+	exitIfDef?: (ctx: IfDefContext) => void;
 
 	/**
-	 * Enter a parse tree produced by `AdvplParser.modifiersFunction`.
+	 * Enter a parse tree produced by `AdvplParser.elseDef`.
 	 * @param ctx the parse tree
 	 */
-	enterModifiersFunction?: (ctx: ModifiersFunctionContext) => void;
+	enterElseDef?: (ctx: ElseDefContext) => void;
 	/**
-	 * Exit a parse tree produced by `AdvplParser.modifiersFunction`.
+	 * Exit a parse tree produced by `AdvplParser.elseDef`.
 	 * @param ctx the parse tree
 	 */
-	exitModifiersFunction?: (ctx: ModifiersFunctionContext) => void;
+	exitElseDef?: (ctx: ElseDefContext) => void;
 
 	/**
-	 * Enter a parse tree produced by `AdvplParser.staticVariable`.
+	 * Enter a parse tree produced by `AdvplParser.endifDef`.
 	 * @param ctx the parse tree
 	 */
-	enterStaticVariable?: (ctx: StaticVariableContext) => void;
+	enterEndifDef?: (ctx: EndifDefContext) => void;
 	/**
-	 * Exit a parse tree produced by `AdvplParser.staticVariable`.
+	 * Exit a parse tree produced by `AdvplParser.endifDef`.
 	 * @param ctx the parse tree
 	 */
-	exitStaticVariable?: (ctx: StaticVariableContext) => void;
+	exitEndifDef?: (ctx: EndifDefContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `AdvplParser.defineDeclaration`.
+	 * @param ctx the parse tree
+	 */
+	enterDefineDeclaration?: (ctx: DefineDeclarationContext) => void;
+	/**
+	 * Exit a parse tree produced by `AdvplParser.defineDeclaration`.
+	 * @param ctx the parse tree
+	 */
+	exitDefineDeclaration?: (ctx: DefineDeclarationContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `AdvplParser.undefineDeclaration`.
+	 * @param ctx the parse tree
+	 */
+	enterUndefineDeclaration?: (ctx: UndefineDeclarationContext) => void;
+	/**
+	 * Exit a parse tree produced by `AdvplParser.undefineDeclaration`.
+	 * @param ctx the parse tree
+	 */
+	exitUndefineDeclaration?: (ctx: UndefineDeclarationContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `AdvplParser.classDeclaration`.
@@ -674,17 +610,6 @@ export interface AdvplListener extends ParseTreeListener {
 	exitDataDefinition?: (ctx: DataDefinitionContext) => void;
 
 	/**
-	 * Enter a parse tree produced by `AdvplParser.fromClass`.
-	 * @param ctx the parse tree
-	 */
-	enterFromClass?: (ctx: FromClassContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.fromClass`.
-	 * @param ctx the parse tree
-	 */
-	exitFromClass?: (ctx: FromClassContext) => void;
-
-	/**
 	 * Enter a parse tree produced by `AdvplParser.methodDefinition`.
 	 * @param ctx the parse tree
 	 */
@@ -694,39 +619,6 @@ export interface AdvplListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitMethodDefinition?: (ctx: MethodDefinitionContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.dataDescription`.
-	 * @param ctx the parse tree
-	 */
-	enterDataDescription?: (ctx: DataDescriptionContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.dataDescription`.
-	 * @param ctx the parse tree
-	 */
-	exitDataDescription?: (ctx: DataDescriptionContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.dataType`.
-	 * @param ctx the parse tree
-	 */
-	enterDataType?: (ctx: DataTypeContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.dataType`.
-	 * @param ctx the parse tree
-	 */
-	exitDataType?: (ctx: DataTypeContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.dataModifiers`.
-	 * @param ctx the parse tree
-	 */
-	enterDataModifiers?: (ctx: DataModifiersContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.dataModifiers`.
-	 * @param ctx the parse tree
-	 */
-	exitDataModifiers?: (ctx: DataModifiersContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `AdvplParser.modifiersMethod`.
@@ -740,37 +632,15 @@ export interface AdvplListener extends ParseTreeListener {
 	exitModifiersMethod?: (ctx: ModifiersMethodContext) => void;
 
 	/**
-	 * Enter a parse tree produced by `AdvplParser.wsDataType`.
+	 * Enter a parse tree produced by `AdvplParser.methodBody`.
 	 * @param ctx the parse tree
 	 */
-	enterWsDataType?: (ctx: WsDataTypeContext) => void;
+	enterMethodBody?: (ctx: MethodBodyContext) => void;
 	/**
-	 * Exit a parse tree produced by `AdvplParser.wsDataType`.
+	 * Exit a parse tree produced by `AdvplParser.methodBody`.
 	 * @param ctx the parse tree
 	 */
-	exitWsDataType?: (ctx: WsDataTypeContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.qsDeclaration`.
-	 * @param ctx the parse tree
-	 */
-	enterQsDeclaration?: (ctx: QsDeclarationContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.qsDeclaration`.
-	 * @param ctx the parse tree
-	 */
-	exitQsDeclaration?: (ctx: QsDeclarationContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.qsMethod`.
-	 * @param ctx the parse tree
-	 */
-	enterQsMethod?: (ctx: QsMethodContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.qsMethod`.
-	 * @param ctx the parse tree
-	 */
-	exitQsMethod?: (ctx: QsMethodContext) => void;
+	exitMethodBody?: (ctx: MethodBodyContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `AdvplParser.funcDeclaration`.
@@ -784,17 +654,6 @@ export interface AdvplListener extends ParseTreeListener {
 	exitFuncDeclaration?: (ctx: FuncDeclarationContext) => void;
 
 	/**
-	 * Enter a parse tree produced by `AdvplParser.functionDefinition`.
-	 * @param ctx the parse tree
-	 */
-	enterFunctionDefinition?: (ctx: FunctionDefinitionContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.functionDefinition`.
-	 * @param ctx the parse tree
-	 */
-	exitFunctionDefinition?: (ctx: FunctionDefinitionContext) => void;
-
-	/**
 	 * Enter a parse tree produced by `AdvplParser.superCall`.
 	 * @param ctx the parse tree
 	 */
@@ -804,6 +663,39 @@ export interface AdvplListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitSuperCall?: (ctx: SuperCallContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `AdvplParser.initFuncOrMethod`.
+	 * @param ctx the parse tree
+	 */
+	enterInitFuncOrMethod?: (ctx: InitFuncOrMethodContext) => void;
+	/**
+	 * Exit a parse tree produced by `AdvplParser.initFuncOrMethod`.
+	 * @param ctx the parse tree
+	 */
+	exitInitFuncOrMethod?: (ctx: InitFuncOrMethodContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `AdvplParser.variableDeclarationStatement`.
+	 * @param ctx the parse tree
+	 */
+	enterVariableDeclarationStatement?: (ctx: VariableDeclarationStatementContext) => void;
+	/**
+	 * Exit a parse tree produced by `AdvplParser.variableDeclarationStatement`.
+	 * @param ctx the parse tree
+	 */
+	exitVariableDeclarationStatement?: (ctx: VariableDeclarationStatementContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `AdvplParser.modifiersFunction`.
+	 * @param ctx the parse tree
+	 */
+	enterModifiersFunction?: (ctx: ModifiersFunctionContext) => void;
+	/**
+	 * Exit a parse tree produced by `AdvplParser.modifiersFunction`.
+	 * @param ctx the parse tree
+	 */
+	exitModifiersFunction?: (ctx: ModifiersFunctionContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `AdvplParser.formalParameters`.
@@ -828,37 +720,15 @@ export interface AdvplListener extends ParseTreeListener {
 	exitFormalParameter?: (ctx: FormalParameterContext) => void;
 
 	/**
-	 * Enter a parse tree produced by `AdvplParser.initFuncOrMethod`.
+	 * Enter a parse tree produced by `AdvplParser.identifier`.
 	 * @param ctx the parse tree
 	 */
-	enterInitFuncOrMethod?: (ctx: InitFuncOrMethodContext) => void;
+	enterIdentifier?: (ctx: IdentifierContext) => void;
 	/**
-	 * Exit a parse tree produced by `AdvplParser.initFuncOrMethod`.
+	 * Exit a parse tree produced by `AdvplParser.identifier`.
 	 * @param ctx the parse tree
 	 */
-	exitInitFuncOrMethod?: (ctx: InitFuncOrMethodContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.staticVariableBeforeLocal`.
-	 * @param ctx the parse tree
-	 */
-	enterStaticVariableBeforeLocal?: (ctx: StaticVariableBeforeLocalContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.staticVariableBeforeLocal`.
-	 * @param ctx the parse tree
-	 */
-	exitStaticVariableBeforeLocal?: (ctx: StaticVariableBeforeLocalContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.localVariableDeclarationStatement`.
-	 * @param ctx the parse tree
-	 */
-	enterLocalVariableDeclarationStatement?: (ctx: LocalVariableDeclarationStatementContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.localVariableDeclarationStatement`.
-	 * @param ctx the parse tree
-	 */
-	exitLocalVariableDeclarationStatement?: (ctx: LocalVariableDeclarationStatementContext) => void;
+	exitIdentifier?: (ctx: IdentifierContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `AdvplParser.staticVariableDeclarationStatement`.
@@ -872,17 +742,6 @@ export interface AdvplListener extends ParseTreeListener {
 	exitStaticVariableDeclarationStatement?: (ctx: StaticVariableDeclarationStatementContext) => void;
 
 	/**
-	 * Enter a parse tree produced by `AdvplParser.publicVariableDeclarationStatement`.
-	 * @param ctx the parse tree
-	 */
-	enterPublicVariableDeclarationStatement?: (ctx: PublicVariableDeclarationStatementContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.publicVariableDeclarationStatement`.
-	 * @param ctx the parse tree
-	 */
-	exitPublicVariableDeclarationStatement?: (ctx: PublicVariableDeclarationStatementContext) => void;
-
-	/**
 	 * Enter a parse tree produced by `AdvplParser.privateVariableDeclarationStatement`.
 	 * @param ctx the parse tree
 	 */
@@ -894,26 +753,15 @@ export interface AdvplListener extends ParseTreeListener {
 	exitPrivateVariableDeclarationStatement?: (ctx: PrivateVariableDeclarationStatementContext) => void;
 
 	/**
-	 * Enter a parse tree produced by `AdvplParser.arrayOrBlockInitializer`.
+	 * Enter a parse tree produced by `AdvplParser.publicVariableDeclarationStatement`.
 	 * @param ctx the parse tree
 	 */
-	enterArrayOrBlockInitializer?: (ctx: ArrayOrBlockInitializerContext) => void;
+	enterPublicVariableDeclarationStatement?: (ctx: PublicVariableDeclarationStatementContext) => void;
 	/**
-	 * Exit a parse tree produced by `AdvplParser.arrayOrBlockInitializer`.
+	 * Exit a parse tree produced by `AdvplParser.publicVariableDeclarationStatement`.
 	 * @param ctx the parse tree
 	 */
-	exitArrayOrBlockInitializer?: (ctx: ArrayOrBlockInitializerContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.blockParams`.
-	 * @param ctx the parse tree
-	 */
-	enterBlockParams?: (ctx: BlockParamsContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.blockParams`.
-	 * @param ctx the parse tree
-	 */
-	exitBlockParams?: (ctx: BlockParamsContext) => void;
+	exitPublicVariableDeclarationStatement?: (ctx: PublicVariableDeclarationStatementContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `AdvplParser.block`.
@@ -938,15 +786,70 @@ export interface AdvplListener extends ParseTreeListener {
 	exitStatement?: (ctx: StatementContext) => void;
 
 	/**
-	 * Enter a parse tree produced by `AdvplParser.beginSequenceStatement`.
+	 * Enter a parse tree produced by `AdvplParser.ifStatement`.
 	 * @param ctx the parse tree
 	 */
-	enterBeginSequenceStatement?: (ctx: BeginSequenceStatementContext) => void;
+	enterIfStatement?: (ctx: IfStatementContext) => void;
 	/**
-	 * Exit a parse tree produced by `AdvplParser.beginSequenceStatement`.
+	 * Exit a parse tree produced by `AdvplParser.ifStatement`.
 	 * @param ctx the parse tree
 	 */
-	exitBeginSequenceStatement?: (ctx: BeginSequenceStatementContext) => void;
+	exitIfStatement?: (ctx: IfStatementContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `AdvplParser.forStatement`.
+	 * @param ctx the parse tree
+	 */
+	enterForStatement?: (ctx: ForStatementContext) => void;
+	/**
+	 * Exit a parse tree produced by `AdvplParser.forStatement`.
+	 * @param ctx the parse tree
+	 */
+	exitForStatement?: (ctx: ForStatementContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `AdvplParser.forInit`.
+	 * @param ctx the parse tree
+	 */
+	enterForInit?: (ctx: ForInitContext) => void;
+	/**
+	 * Exit a parse tree produced by `AdvplParser.forInit`.
+	 * @param ctx the parse tree
+	 */
+	exitForInit?: (ctx: ForInitContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `AdvplParser.doStatement`.
+	 * @param ctx the parse tree
+	 */
+	enterDoStatement?: (ctx: DoStatementContext) => void;
+	/**
+	 * Exit a parse tree produced by `AdvplParser.doStatement`.
+	 * @param ctx the parse tree
+	 */
+	exitDoStatement?: (ctx: DoStatementContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `AdvplParser.whileStatement`.
+	 * @param ctx the parse tree
+	 */
+	enterWhileStatement?: (ctx: WhileStatementContext) => void;
+	/**
+	 * Exit a parse tree produced by `AdvplParser.whileStatement`.
+	 * @param ctx the parse tree
+	 */
+	exitWhileStatement?: (ctx: WhileStatementContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `AdvplParser.docaseStatement`.
+	 * @param ctx the parse tree
+	 */
+	enterDocaseStatement?: (ctx: DocaseStatementContext) => void;
+	/**
+	 * Exit a parse tree produced by `AdvplParser.docaseStatement`.
+	 * @param ctx the parse tree
+	 */
+	exitDocaseStatement?: (ctx: DocaseStatementContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `AdvplParser.returnStatement`.
@@ -960,26 +863,15 @@ export interface AdvplListener extends ParseTreeListener {
 	exitReturnStatement?: (ctx: ReturnStatementContext) => void;
 
 	/**
-	 * Enter a parse tree produced by `AdvplParser.returnvalues`.
+	 * Enter a parse tree produced by `AdvplParser.exitOrLoopStatement`.
 	 * @param ctx the parse tree
 	 */
-	enterReturnvalues?: (ctx: ReturnvaluesContext) => void;
+	enterExitOrLoopStatement?: (ctx: ExitOrLoopStatementContext) => void;
 	/**
-	 * Exit a parse tree produced by `AdvplParser.returnvalues`.
+	 * Exit a parse tree produced by `AdvplParser.exitOrLoopStatement`.
 	 * @param ctx the parse tree
 	 */
-	exitReturnvalues?: (ctx: ReturnvaluesContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.statementExpression`.
-	 * @param ctx the parse tree
-	 */
-	enterStatementExpression?: (ctx: StatementExpressionContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.statementExpression`.
-	 * @param ctx the parse tree
-	 */
-	exitStatementExpression?: (ctx: StatementExpressionContext) => void;
+	exitExitOrLoopStatement?: (ctx: ExitOrLoopStatementContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `AdvplParser.expression`.
@@ -991,50 +883,6 @@ export interface AdvplListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitExpression?: (ctx: ExpressionContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.primary`.
-	 * @param ctx the parse tree
-	 */
-	enterPrimary?: (ctx: PrimaryContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.primary`.
-	 * @param ctx the parse tree
-	 */
-	exitPrimary?: (ctx: PrimaryContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.identifier`.
-	 * @param ctx the parse tree
-	 */
-	enterIdentifier?: (ctx: IdentifierContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.identifier`.
-	 * @param ctx the parse tree
-	 */
-	exitIdentifier?: (ctx: IdentifierContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.arrayAccess`.
-	 * @param ctx the parse tree
-	 */
-	enterArrayAccess?: (ctx: ArrayAccessContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.arrayAccess`.
-	 * @param ctx the parse tree
-	 */
-	exitArrayAccess?: (ctx: ArrayAccessContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.methodAccessLoop`.
-	 * @param ctx the parse tree
-	 */
-	enterMethodAccessLoop?: (ctx: MethodAccessLoopContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.methodAccessLoop`.
-	 * @param ctx the parse tree
-	 */
-	exitMethodAccessLoop?: (ctx: MethodAccessLoopContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `AdvplParser.arguments`.
@@ -1070,15 +918,81 @@ export interface AdvplListener extends ParseTreeListener {
 	exitOptionalExpression?: (ctx: OptionalExpressionContext) => void;
 
 	/**
-	 * Enter a parse tree produced by `AdvplParser.expressionListComa`.
+	 * Enter a parse tree produced by `AdvplParser.arrayAccess`.
 	 * @param ctx the parse tree
 	 */
-	enterExpressionListComa?: (ctx: ExpressionListComaContext) => void;
+	enterArrayAccess?: (ctx: ArrayAccessContext) => void;
 	/**
-	 * Exit a parse tree produced by `AdvplParser.expressionListComa`.
+	 * Exit a parse tree produced by `AdvplParser.arrayAccess`.
 	 * @param ctx the parse tree
 	 */
-	exitExpressionListComa?: (ctx: ExpressionListComaContext) => void;
+	exitArrayAccess?: (ctx: ArrayAccessContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `AdvplParser.methodAccessLoop`.
+	 * @param ctx the parse tree
+	 */
+	enterMethodAccessLoop?: (ctx: MethodAccessLoopContext) => void;
+	/**
+	 * Exit a parse tree produced by `AdvplParser.methodAccessLoop`.
+	 * @param ctx the parse tree
+	 */
+	exitMethodAccessLoop?: (ctx: MethodAccessLoopContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `AdvplParser.primary_ref`.
+	 * @param ctx the parse tree
+	 */
+	enterPrimary_ref?: (ctx: Primary_refContext) => void;
+	/**
+	 * Exit a parse tree produced by `AdvplParser.primary_ref`.
+	 * @param ctx the parse tree
+	 */
+	exitPrimary_ref?: (ctx: Primary_refContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `AdvplParser.primary`.
+	 * @param ctx the parse tree
+	 */
+	enterPrimary?: (ctx: PrimaryContext) => void;
+	/**
+	 * Exit a parse tree produced by `AdvplParser.primary`.
+	 * @param ctx the parse tree
+	 */
+	exitPrimary?: (ctx: PrimaryContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `AdvplParser.atxCommand`.
+	 * @param ctx the parse tree
+	 */
+	enterAtxCommand?: (ctx: AtxCommandContext) => void;
+	/**
+	 * Exit a parse tree produced by `AdvplParser.atxCommand`.
+	 * @param ctx the parse tree
+	 */
+	exitAtxCommand?: (ctx: AtxCommandContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `AdvplParser.arrayOrBlockInitializer`.
+	 * @param ctx the parse tree
+	 */
+	enterArrayOrBlockInitializer?: (ctx: ArrayOrBlockInitializerContext) => void;
+	/**
+	 * Exit a parse tree produced by `AdvplParser.arrayOrBlockInitializer`.
+	 * @param ctx the parse tree
+	 */
+	exitArrayOrBlockInitializer?: (ctx: ArrayOrBlockInitializerContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `AdvplParser.blockParams`.
+	 * @param ctx the parse tree
+	 */
+	enterBlockParams?: (ctx: BlockParamsContext) => void;
+	/**
+	 * Exit a parse tree produced by `AdvplParser.blockParams`.
+	 * @param ctx the parse tree
+	 */
+	exitBlockParams?: (ctx: BlockParamsContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `AdvplParser.literal`.
@@ -1103,246 +1017,70 @@ export interface AdvplListener extends ParseTreeListener {
 	exitIfFunctioncall?: (ctx: IfFunctioncallContext) => void;
 
 	/**
-	 * Enter a parse tree produced by `AdvplParser.ifStatement`.
+	 * Enter a parse tree produced by `AdvplParser.chStatement`.
 	 * @param ctx the parse tree
 	 */
-	enterIfStatement?: (ctx: IfStatementContext) => void;
+	enterChStatement?: (ctx: ChStatementContext) => void;
 	/**
-	 * Exit a parse tree produced by `AdvplParser.ifStatement`.
+	 * Exit a parse tree produced by `AdvplParser.chStatement`.
 	 * @param ctx the parse tree
 	 */
-	exitIfStatement?: (ctx: IfStatementContext) => void;
+	exitChStatement?: (ctx: ChStatementContext) => void;
 
 	/**
-	 * Enter a parse tree produced by `AdvplParser.ifCondition`.
+	 * Enter a parse tree produced by `AdvplParser.defineCh`.
 	 * @param ctx the parse tree
 	 */
-	enterIfCondition?: (ctx: IfConditionContext) => void;
+	enterDefineCh?: (ctx: DefineChContext) => void;
 	/**
-	 * Exit a parse tree produced by `AdvplParser.ifCondition`.
+	 * Exit a parse tree produced by `AdvplParser.defineCh`.
 	 * @param ctx the parse tree
 	 */
-	exitIfCondition?: (ctx: IfConditionContext) => void;
+	exitDefineCh?: (ctx: DefineChContext) => void;
 
 	/**
-	 * Enter a parse tree produced by `AdvplParser.elseIfCondition`.
+	 * Enter a parse tree produced by `AdvplParser.activateCh`.
 	 * @param ctx the parse tree
 	 */
-	enterElseIfCondition?: (ctx: ElseIfConditionContext) => void;
+	enterActivateCh?: (ctx: ActivateChContext) => void;
 	/**
-	 * Exit a parse tree produced by `AdvplParser.elseIfCondition`.
+	 * Exit a parse tree produced by `AdvplParser.activateCh`.
 	 * @param ctx the parse tree
 	 */
-	exitElseIfCondition?: (ctx: ElseIfConditionContext) => void;
+	exitActivateCh?: (ctx: ActivateChContext) => void;
 
 	/**
-	 * Enter a parse tree produced by `AdvplParser.elseIfBlock`.
+	 * Enter a parse tree produced by `AdvplParser.setsCh`.
 	 * @param ctx the parse tree
 	 */
-	enterElseIfBlock?: (ctx: ElseIfBlockContext) => void;
+	enterSetsCh?: (ctx: SetsChContext) => void;
 	/**
-	 * Exit a parse tree produced by `AdvplParser.elseIfBlock`.
+	 * Exit a parse tree produced by `AdvplParser.setsCh`.
 	 * @param ctx the parse tree
 	 */
-	exitElseIfBlock?: (ctx: ElseIfBlockContext) => void;
+	exitSetsCh?: (ctx: SetsChContext) => void;
 
 	/**
-	 * Enter a parse tree produced by `AdvplParser.elseBlock`.
+	 * Enter a parse tree produced by `AdvplParser.paramType`.
 	 * @param ctx the parse tree
 	 */
-	enterElseBlock?: (ctx: ElseBlockContext) => void;
+	enterParamType?: (ctx: ParamTypeContext) => void;
 	/**
-	 * Exit a parse tree produced by `AdvplParser.elseBlock`.
+	 * Exit a parse tree produced by `AdvplParser.paramType`.
 	 * @param ctx the parse tree
 	 */
-	exitElseBlock?: (ctx: ElseBlockContext) => void;
+	exitParamType?: (ctx: ParamTypeContext) => void;
 
 	/**
-	 * Enter a parse tree produced by `AdvplParser.ifBlock`.
+	 * Enter a parse tree produced by `AdvplParser.classException`.
 	 * @param ctx the parse tree
 	 */
-	enterIfBlock?: (ctx: IfBlockContext) => void;
+	enterClassException?: (ctx: ClassExceptionContext) => void;
 	/**
-	 * Exit a parse tree produced by `AdvplParser.ifBlock`.
+	 * Exit a parse tree produced by `AdvplParser.classException`.
 	 * @param ctx the parse tree
 	 */
-	exitIfBlock?: (ctx: IfBlockContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.forStatement`.
-	 * @param ctx the parse tree
-	 */
-	enterForStatement?: (ctx: ForStatementContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.forStatement`.
-	 * @param ctx the parse tree
-	 */
-	exitForStatement?: (ctx: ForStatementContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.forToExpression`.
-	 * @param ctx the parse tree
-	 */
-	enterForToExpression?: (ctx: ForToExpressionContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.forToExpression`.
-	 * @param ctx the parse tree
-	 */
-	exitForToExpression?: (ctx: ForToExpressionContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.forStepExpression`.
-	 * @param ctx the parse tree
-	 */
-	enterForStepExpression?: (ctx: ForStepExpressionContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.forStepExpression`.
-	 * @param ctx the parse tree
-	 */
-	exitForStepExpression?: (ctx: ForStepExpressionContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.forBlock`.
-	 * @param ctx the parse tree
-	 */
-	enterForBlock?: (ctx: ForBlockContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.forBlock`.
-	 * @param ctx the parse tree
-	 */
-	exitForBlock?: (ctx: ForBlockContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.lostExpression`.
-	 * @param ctx the parse tree
-	 */
-	enterLostExpression?: (ctx: LostExpressionContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.lostExpression`.
-	 * @param ctx the parse tree
-	 */
-	exitLostExpression?: (ctx: LostExpressionContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.doStatement`.
-	 * @param ctx the parse tree
-	 */
-	enterDoStatement?: (ctx: DoStatementContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.doStatement`.
-	 * @param ctx the parse tree
-	 */
-	exitDoStatement?: (ctx: DoStatementContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.exitOrLoopStatement`.
-	 * @param ctx the parse tree
-	 */
-	enterExitOrLoopStatement?: (ctx: ExitOrLoopStatementContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.exitOrLoopStatement`.
-	 * @param ctx the parse tree
-	 */
-	exitExitOrLoopStatement?: (ctx: ExitOrLoopStatementContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.whileStatement`.
-	 * @param ctx the parse tree
-	 */
-	enterWhileStatement?: (ctx: WhileStatementContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.whileStatement`.
-	 * @param ctx the parse tree
-	 */
-	exitWhileStatement?: (ctx: WhileStatementContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.whileCondition`.
-	 * @param ctx the parse tree
-	 */
-	enterWhileCondition?: (ctx: WhileConditionContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.whileCondition`.
-	 * @param ctx the parse tree
-	 */
-	exitWhileCondition?: (ctx: WhileConditionContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.whileBlock`.
-	 * @param ctx the parse tree
-	 */
-	enterWhileBlock?: (ctx: WhileBlockContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.whileBlock`.
-	 * @param ctx the parse tree
-	 */
-	exitWhileBlock?: (ctx: WhileBlockContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.docaseStatement`.
-	 * @param ctx the parse tree
-	 */
-	enterDocaseStatement?: (ctx: DocaseStatementContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.docaseStatement`.
-	 * @param ctx the parse tree
-	 */
-	exitDocaseStatement?: (ctx: DocaseStatementContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.caseCondition`.
-	 * @param ctx the parse tree
-	 */
-	enterCaseCondition?: (ctx: CaseConditionContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.caseCondition`.
-	 * @param ctx the parse tree
-	 */
-	exitCaseCondition?: (ctx: CaseConditionContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.caseBlock`.
-	 * @param ctx the parse tree
-	 */
-	enterCaseBlock?: (ctx: CaseBlockContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.caseBlock`.
-	 * @param ctx the parse tree
-	 */
-	exitCaseBlock?: (ctx: CaseBlockContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.otherWiseBlock`.
-	 * @param ctx the parse tree
-	 */
-	enterOtherWiseBlock?: (ctx: OtherWiseBlockContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.otherWiseBlock`.
-	 * @param ctx the parse tree
-	 */
-	exitOtherWiseBlock?: (ctx: OtherWiseBlockContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.arrobaDefine`.
-	 * @param ctx the parse tree
-	 */
-	enterArrobaDefine?: (ctx: ArrobaDefineContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.arrobaDefine`.
-	 * @param ctx the parse tree
-	 */
-	exitArrobaDefine?: (ctx: ArrobaDefineContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `AdvplParser.forInit`.
-	 * @param ctx the parse tree
-	 */
-	enterForInit?: (ctx: ForInitContext) => void;
-	/**
-	 * Exit a parse tree produced by `AdvplParser.forInit`.
-	 * @param ctx the parse tree
-	 */
-	exitForInit?: (ctx: ForInitContext) => void;
+	exitClassException?: (ctx: ClassExceptionContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `AdvplParser.crlf`.

@@ -1,3 +1,4 @@
+/*
 import { ParserRuleContext, Token } from "antlr4ts";
 import { AdvplListener } from "../../gen/AdvplListener";
 
@@ -61,6 +62,7 @@ export class SymbolTableListener implements AdvplListener {
     /**
      * Retorna a linha do fonte original e não do PPO
      */
+    /*
     public getPPOLineDif(): number {
         return this.sourceLine;
     }
@@ -84,7 +86,7 @@ export class SymbolTableListener implements AdvplListener {
     /*exitStaticVariable(ctx: StaticVariableContext) {
         this.genericExit();
     }*/
-
+/*
     enterFunctionDefinition(ctx: FunctionDefinitionContext) {
         let functionName = ctx.identifier().text;
         let className;
@@ -150,7 +152,7 @@ export class SymbolTableListener implements AdvplListener {
     }
     exitBlock(ctx: BlockContext) {
       //  this.genericExit();
-    }*/
+    }*//*
     enterLocalVariableDeclarationStatement(ctx: LocalVariableDeclarationStatementContext) {
         const scope = new LocalScope(this.currentScope);
         this.currentScope.addChild(scope);
@@ -179,3 +181,4 @@ export class SymbolTableListener implements AdvplListener {
     }
 
 }
+*/

@@ -9,46 +9,21 @@ options
 }
 program
 	:	  
-	(sources
-	)* EOF?
-	
+	(directives | funcDeclaration|staticVariableDeclarationStatement| methodBody | classDeclaration |crlfEmpty
+	)* EOF?	
 	;
+//-----------------------------------------------    
+// PreProcessor
+//-----------------------------------------------
+       
+directives:
+	ifDef|elseDef|endifDef|undefineDeclaration|defineDeclaration |includeDeclaration;
 
-
-
-/*preprocessorDeclaration
-	:	linePreProcessor;*/
-linePreProcessor : '#LINE' NUMBER STRING CRLF 
-;
-
-/* 
 includeDeclaration
 	: INCLUDE (STRINGSIMPLE | STRING) 
 	;	
-       
-directives:
-	ifDef|elseDef|endifDef|undefineDeclaration|xCommand|xTranslate|defineDeclaration;
-
 ifDef:
         ((IFDEF | IFNDEF) expression) ;
-         
-xCommand:
-	
-     '#XCOMMAND' matchPattern '=>' resultPattern crlf ;      
-matchPattern :/ 
-	(LBRACK? expression RBRACK?)+;
-
-resultPattern :
-	(LBRACK? (expression|';') RBRACK?)+;
-*/
-idMarker:
-	 MINOR identifier (':' expressionList)?MAJOR;
-		
-/*xTranslate:
-	'#XTRANSLATE' matchPattern '=>' resultPattern crlf ;
- 
-       //'#XTRANSLATE' ~('\n'|'\r')*  -> channel(HIDDEN);
-             
 elseDef:
          ELSEDEF ; 
          
@@ -56,351 +31,187 @@ endifDef:
 	ENDIFDEF   ;
          
 defineDeclaration
-	:	DEFINE (expression (LPAREN formalParameters? RPAREN)?)  (expression (','expression )?)? ;
+	:	PDEFINE (expression (LPAREN formalParameters? RPAREN)?)  (expression (','expression )?)? ;
 
 undefineDeclaration
-	:	UNDEFINE identifier crlf ;
-*/
-sources 
-	:
-	 linePreProcessor| classDeclaration|funcDeclaration|staticVariable|(crlfEmpty);
+	:	UNDEFINE identifier crlf ;         
 
-modifiersFunction  
-    :	
-       STATIC
-    |   MAIN
-    ;
-//-----------------------------------------------------------
-// variaveis statics
-//-----------------------------------------------------------
-staticVariable
-	:	STATIC staticVariableDeclarationStatement 
-	;
-//-----------------------------------------------------------
-// Definão da classe
-//-----------------------------------------------------------
+//-----------------------------------------------    
+// Classes
+//-----------------------------------------------
 classDeclaration:
-'_OBJNEWCLASS' LPAREN identifier COMMA (fromClass )? RPAREN crlf
- (dataDefinition|methodDefinition)*
-'_OBJENDCLASS' LPAREN  RPAREN (crlf|EOF);
-dataDefinition : 
-	'_OBJCLASSDATA'  LPAREN identifier COMMA (wsDataType)? COMMA (dataModifiers)? COMMA (dataDescription)? RPAREN crlf;
-fromClass:
-             identifier;
-methodDefinition:
-	'_OBJCLASSMETHOD' LPAREN identifier COMMA (arguments)? COMMA RPAREN crlf;             
-dataDescription:
-	expression;
-dataType:
-	identifier;
-/*             
-classDeclaration_semppo:
-                  CLASS identifier CAMELCASE? fromClass?  crlf
-                  (dataDefinition|serializabledataDefinition|methodDefinition|asteriscoStatement crlf)*
-                  (ENDCLASS|(END CLASS) )  (crlf|EOF)
+                 CLASS identifier (FROM identifier)? crlf
+                 (dataDefinition|methodDefinition)*
+                 ENDCLASS crlf
                 ;
-fromClass_semppo:
-             FROM identifier;
-dataDefinition_semppo:
-                 DATA identifier (AS wsDataType)? dataModifiers? crlf;*/
-dataModifiers:
-	C_HIDDEN|READONLY;                 
-/*serializabledataDefinition:
-        CAMELCASE DATA identifier (AS wsDataType )? crlf;*/
+dataDefinition:
+                DATA identifier (AS identifier)? crlf
+;
+
+methodDefinition:
+                METHOD identifier arguments? (AS identifier)? crlf
+;
 modifiersMethod :
 			STATIC;
-/*methodDefinition_semppo:
-                 METHOD identifier arguments 'CONSTRUCTOR'? crlf;
 methodBody:
-                 modifiersMethod? METHOD identifier (LPAREN formalParameters? RPAREN)? CLASS identifier crlf
-                 	initFuncOrMethod?   (EOF|block) 	
-;*/
-//-----------------------------------------------------------
-// Definão de REST
-//-----------------------------------------------------------
-/* 
-restServiceDeclaration:
-                  WSRESTFUL identifier DESCRIPTION expression (FORMAT literal)? crlf
-                  wsdataDefinition*
-                  restmethodDefinition*
-                  END WSRESTFUL crlf
-                ;
-
-restmethodDefinition :                        
-                 WSMETHOD (GET|PUT|POST|DELETE) identifier?  (DESCRIPTION expression )?
-                 (WSSYNTAX literal) ?
-                 ((PATH) expression)?
-                 (PRODUCES identifier)?
-                 (REQUEST literal)?
-                 (RESPONSE identifier)?
-                 crlf;
-restmethodBody:
-                 WSMETHOD (GET|'PUT'|'POST'|DELETE) identifier 
-                 (PATHPARAM expressionList )?
-                 (QUERYPARAM expressionList)?
-                 (WSREST|WSRESTFUL) identifier crlf
-                 
-                 	initFuncOrMethod?   block 	
-            ;
-*/
-//-----------------------------------------------------------
-// Definão de WebService
-//-----------------------------------------------------------
-/*
-wsServiceDeclaration:
-                  WSSERVICE identifier (DESCRIPTION expression)? (NAMESPACE literal)? crlf
-                  (wsdataDefinition|
-                  wsmethodDefinition)*
-                  ENDWSSERVICE crlf
-                ;
-
-*/
-/*wsStructDeclaration:
-                  WSSTRUCT identifier crlf
-                  wsdataDefinition*  
-                  wsmethodDefinition*                
-                  (ENDWSSTRUCT | END WSSTRUCT) crlf
-                ;
-
-
-wsdataDefinition:
-                 WSDATA identifier (AS wsDataType)? OPTIONAL? crlf;
-wsmethodDefinition:
-                 WSMETHOD identifier arguments? (DESCRIPTION expression)? crlf;
-wsmethodBody:
-                 WSMETHOD identifier ((wsReceive? wsSend ?)|(wsSend? wsReceive?) )WSSERVICE identifier crlf
-                 
-                 	initFuncOrMethod?   block 	
-            ;
-wsReceive: WSRECEIVE formalParameters;
-wsSend: WSSEND formalParameters ;
-* 
-*/
-wsDataType: identifier (OF identifier)?;
-
-
-//-----------------------------------------------------------
-// Definão de QuickSearch
-//-----------------------------------------------------------
-
-qsDeclaration : QSSTRUCT identifier DESCRIPTION expression MODULE expression crlf ;
-qsMethod : QSMETHOD INIT QSSTRUCT identifier crlf
-initFuncOrMethod?  block
-; 
-//-----------------------------------------------------------
-// Definão de WebServiceCliente
-//-----------------------------------------------------------
-/*
-wsServiceClientDeclaration:
-                  WSCLIENT identifier crlf
-                  (wsdataDefinition|wsmethodClientDefinition)*
-                  ENDWSCLIENT crlf
-                ;
-wsmethodClientDefinition:
-                WSMETHOD identifier crlf;
-
-wsmethodClientBody:
-                 WSMETHOD identifier  wsSend ? wsReceive? WSCLIENT identifier crlf                 
-                 	initFuncOrMethod?   blockWS  
-            ;
-           
-beginWSMethod : BEGIN WSMETHOD;
-endWSMethod: END WSMETHOD;
-   */
-
-//-----------------------------------------------------------
-// Definão do DataSet Birt
-//-----------------------------------------------------------
-/*birtDataset:
-	 DATASET identifier (crlf|EOF) ((TITLE expression crlf) |(DESCRIPTION expression crlf) | (PERGUNTE literal crlf))+
-		initFuncOrMethod?   block;
-birtProcess:
-		PROCESS DATASET (crlf|EOF)
-		initFuncOrMethod?   block;*/
-/*birtColumns :
-	 	COLUMNS
-;
-birtdefineColumn:
-	DEFINE COLUMN;*/
-//-----------------------------------------------------------
-// Definão da Funcao
-//-----------------------------------------------------------
-
+                 modifiersMethod? METHOD identifier arguments? CLASS identifier crlf
+                 	superCall? initFuncOrMethod?   (EOF|block) 	;
+//-----------------------------------------------    
+// Functions
+//-----------------------------------------------
 funcDeclaration 
-	: functionDefinition
-		superCall? initFuncOrMethod?   (EOF|block) 	
+	: 
+        modifiersFunction? FUNCTION identifier (LPAREN formalParameters? RPAREN)? (AS identifier)?  crlf
+		initFuncOrMethod?   block
 	;
-functionDefinition:
-	modifiersFunction? (PROCEDURE| FUNCTION )identifier (LPAREN formalParameters? RPAREN)? ('AS' dataType)?  (crlf|EOF);
+superCall: ':' identifier (LPAREN expressionList RPAREN) ;
 
-superCall: ':' identifier (LPAREN expressionList RPAREN) 
-;
+initFuncOrMethod 
+	:	(LOCAL variableDeclarationStatement crlf)+;
+
+variableDeclarationStatement 
+    :   expression (AS identifier)? 
+        (COMMA expression (AS identifier)? 
+        )*
+    ;
+modifiersFunction  
+    :
+	USER
+    |   STATIC
+    |   MAIN
+    |   PROJECT
+    | 	TEMPLATE
+    |	WEB
+    ;
+
 formalParameters
-    :   BYREF? formalParameter (',' BYREF? formalParameter)*
+    :   formalParameter (COMMA formalParameter)*
     ;
 formalParameter:
-                   identifier (AS wsDataType)? ;
-               
-initFuncOrMethod 
-	:	(((LOCAL|LOCA )localVariableDeclarationStatement crlf)                  
-                  |(staticVariableBeforeLocal crlf)                                    
-                  | crlfEmpty
-                  | linePreProcessor )+
-			;
-staticVariableBeforeLocal:
-				staticVariable;			
-localVariableDeclarationStatement 
-    :   expression (AS wsDataType)? 
-        (COMMA expression (AS wsDataType)? 
-        )*
-    ;
-staticVariableDeclarationStatement 
-    :   expression (AS wsDataType)?
-        (COMMA expression (AS wsDataType)?
-        )*
-    ;    
-publicVariableDeclarationStatement:
-    PUBLIC expression
-        (COMMA expression
-        )* ;
-
-privateVariableDeclarationStatement:
-    PRIVATE expression (AS wsDataType)?
-        (COMMA expression (AS wsDataType)?
-        )* ;
-/*defaultStatement:
-     DEFAULT expression #defaultState
-    |DEFAULT ATTRIB_OPERATOR expression #defaultStateUInvalid
-                ;
-/*variableDeclarator
-	:	identifier (':=' variableInitializer)?
-        
-	;
-variableInitializer
-	:	expression;*/
-arrayOrBlockInitializer
-    :   ('{' expressionList '}' arrayAccess? ) #arrayInitializer
-    |  ('{' '|' blockParams? '|' expressionList'}' arrayAccess?)  #blockInitializer
-    ;
-blockParams
-	:	identifier (COMMA identifier )*
-	;
-
-block	:	
-	(statement (crlf|EOF)
-	|crlfEmpty)+	
-	;
-/*blockWS:
-((statement|endWSMethod|beginWSMethod) (crlf|EOF)
-	|crlfEmpty)+	
-	
-	
-;*/	
-
-statement 
-	: 	statementExpression
-	|	ifStatement
-	|	forStatement
-        |       doStatement
-        |       whileStatement
-        |       docaseStatement
-		|		returnStatement         
-        |       privateVariableDeclarationStatement        
-        |       exitOrLoopStatement           
-        |       publicVariableDeclarationStatement        
-        |       staticVariable                
-        |		beginSequenceStatement
-        //|		beginTransaction
-//        |       chStatement
-                        
-/*        |		beginReport
-        |		endReport
-  */      
-        
-	;
-    /* 
-beginTransaction: BEGIN TRANSACTION EXTENDED? crlf
-		block
-		END TRANSACTION? (LPAREN RPAREN)? EXTENDED? crlf?; 
-	*/
-beginSequenceStatement: BEGIN SEQUENCE CRLF
-		block
-		END SEQUENCE? crlf?
-	
-	;
-/*beginReport: BEGIN REPORT chIdentifier* CRLF
-
-
-;	
-endReport : END REPORT chIdentifier* CRLF;*/	
-returnStatement
-	:	RETURN returnvalues?
-	;	
-returnvalues
-	:	expression ;
-		
-statementExpression
-	:expression ;	
-//Removido o Assigment pois, se deixamos o return ser um expression, e podemos começar com expression como commando direto 
-//a gramatica na fica mais LL(*) e precisamos ativar o backtracer, que onera a performace.	
-expression
-	:  primary    #ExprPrimary
-	|  primary ECOMERCIAL expression   #ExprPrimaryBadFormed
-    |    expression (op=PLUSPLUS | op=MINUSMINUS) #ExprIncrPos    
-    |   expression ALIASACCESS expression #AliasAssignment
-    |   (op=PLUS|op=MINUS|op=PLUSPLUS|op=MINUSMINUS) expression #ExprIncrPre
-    |   ('!' | NOT) expression #ExprNot    
-    |   expression (op=MULT|op=DIV|op=PERC|op=POW) expression #ExprMul
-    |   expression (op=PLUS|op=MINUS) expression #ExprPlus    
-    |   expression op=AND expression #ExprLogical
-    |   expression op=OR expression #ExprLogical
-    |   expression (op=MINOREQUALS | op=MAJOREQUALS | op=MINOR | op=MAJOR| op=EQUALS|op=DOUBLEEQUAL|op=DIF1|op=DIF2|op=DIF3|op=CONTIDO) expression #ExprComp    
-    |   expression    
-         (PLUSEQUALS 
-        |'-='
-        |'*='
-        |'/='
-        |':='
-        |'^'
-         )    
-        expression # Assignment
-    
-    /*
-    | expression arrayAccess   #VarArrayAccess
-    | expression arguments  #Call
-    | expression ':' identifier #ObjectAttribAccess
-    | expression ':' identifier arguments#ObjectMethodAccess*/
-    
-    ;
-primary
-	:     ARROBA?'(' expressionList ')' arrayAccess?        #Parens
-        | ARROBA? identifier arrayAccess        #VarArrayAccess
-        | ARROBA? identifier arguments  (arrayAccess? )  #Call
-        | ARROBA? identifier LPAREN RPAREN ':' identifier arguments  #ClassConstructor
-        | identifier arguments  methodAccessLoop*  #CallWithAtt
-        | ARROBA? identifier arrayAccess? ( ':' identifier arrayAccess?)+     #ObjectAttribAccess
-        | ARROBA? identifier arrayAccess* methodAccessLoop+  #ObjectMethodAccess                
-        | ARROBA? identifier        #Var                
-        | ARROBA ASSUME identifier (':' identifier)* AS identifier     #Assume
-	| ARROBA? literal                   #lit
-	| arrayOrBlockInitializer  #ArrayOrBlock
-	| ifFunctioncall (methodAccessLoop|arrayAccess)*           #IfCall
-        | ARROBA? ECOMERCIAL expression (arrayAccess | (DOT (arguments|expression)?)| methodAccessLoop|arguments)*   #MacroExecucao//| ARROBA? ECOMERCIAL expression (arrayAccess | DOT |expression| methodAccessLoop)*  #MacroExecucao
-        | ARROBA? identifier ECOMERCIAL expression (arrayAccess | DOT | methodAccessLoop)*   #MacroExecucaoIdentifier//| ARROBA? identifier ECOMERCIAL expression (arrayAccess | DOT |expression| methodAccessLoop)*   #MacroExecucaoIdentifier
-        | LBRACK (expressionList | EQUALS |MINUS) RBRACK        #ExpressionListInConchete
-        | PERC expression ':' expression PERC        #EmbbedExpression
-        | idMarker	#XCommandExpression
-    ;
-
-/*chIdentifier:
-          (BEGIN|PATH|PROCESS|PERGUNTE|TITLE|READONLY|USER|WEB|INIT| MODULE|TO|SELF|CLASS|IDENTIFIER (DOT IDENTIFIER )*|DATA|FROM|OPTIONAL|GET|DELETE|NEXT|FOR|WHILE|EXTENDED) ;*/
-//Next e END não podem estar no chIdentifier pois quebram o comandos de for e while
-/*subChIdentifier:
-	(NEXT|END|FOR|WHILE) (expression|chIdentifier);*/          
+                   identifier (AS identifier)? ;
 
 identifier:
-          'SELF'|':'|IDENTIFIER|LOCA|LOCAL|TEMPLATE|USER|WEB|INIT| MODULE|DELETE|GET|PROJECT|OF|ASSUME|DESCRIPTION|AS|TO|DATA|PROCESS|PERGUNTE|TITLE|MAIN|SEQUENCE|TRANSACTION|BYREF|POST|PUT|REQUEST|DEFAULT|PATH|CLASS|STEP|END 
+          SELF|COLONCOLON|IDENTIFIER|END|DATA|DEFINE|FROM|OBJECT| CHARACTER | DATE| NUMERIC| LOGICAL|BLOCK|ARRAY|DEFAULT|ACTIVATE|INIT|VALID|FILTER;
+
+staticVariableDeclarationStatement
+	:	STATIC variableDeclarationStatement  
+	;
+privateVariableDeclarationStatement
+    :	PRIVATE variableDeclarationStatement  
+	;
+publicVariableDeclarationStatement
+    :	PUBLIC variableDeclarationStatement  
+	;
+//-----------------------------------------------    
+// Block
+//-----------------------------------------------
+block	:	
+	(statement (crlf|EOF)|crlfEmpty)+	
+	;
+
+//-----------------------------------------------    
+// Statement
+//-----------------------------------------------
+statement :
+    expression|
+    ifStatement|
+    forStatement|
+    whileStatement|
+    exitOrLoopStatement|
+    doStatement|
+    returnStatement|
+    privateVariableDeclarationStatement|
+    staticVariableDeclarationStatement|    
+    publicVariableDeclarationStatement|
+    chStatement|
+    directives
           ;
+
+ifStatement 
+	: IF expression crlf 
+		block
+	( ELSEIF expression crlf block   )*
+	(ELSE crlf  
+	 block)*
+	ENDIF
+	;
+forStatement
+	:	
+        FOR forInit TO expression (STEP expression)? crlf
+             block
+        (NEXT) identifier?  crlf? 
+        ;
+forInit	:identifier
+        ASSIGNMENT expression 
+	;
+doStatement
+	:	DO (whileStatement |docaseStatement) ;
+whileStatement
+	: WHILE expression  crlf
+            block 
+         (ENDDO|END )crlf? 	
+	;
+docaseStatement 
+	: CASE crlf 
+                (CASE expression crlf 
+            block)+ 
+              (OTHERWISE block)? (ENDCASE|(END (DO)? ) ) crlf? 
+		;
+returnStatement
+	:	RETURN expression?;
+exitOrLoopStatement:
+    EXIT|LOOP;
+
+//-----------------------------------------------    
+// Expressions
+//-----------------------------------------------
+expression
+	:  primary_ref    #ExprPrimary	
+    |    expression (PLUSPLUS | MINUSMINUS) #ExprIncrPos    
+    |   expression ALIASACCESS expression #AliasAssignment
+    |   (PLUS|MINUS|PLUSPLUS|MINUSMINUS) expression #ExprIncrPre
+    |   ('!' | NOT) expression #ExprNot    
+    |   expression (MULT|DIV|PERC|POW) expression #ExprMul
+    |   expression (PLUS|MINUS) expression #ExprPlus    
+    |   expression (AND|OR) expression #ExprLogical    
+    |   expression (MINOREQUALS | MAJOREQUALS | MINOR | MAJOR| EQUALS|DOUBLEEQUAL|DIFF|DIFF2|DOLAR) expression #ExprComp    
+    |   expression    
+         (PLUSEQUALS         
+        | ASSIGNMENT |MINUSEQUALS
+         )    
+        expression # Assignment;
+/*expression:
+    conditionalExpression 
+        ((ASSIGNMENT | PLUSEQUALS | MINUSEQUALS| MULTEQUALS | DIVEQUALS ) expression)*;
+
+conditionalExpression : 
+    relationalExpression 
+        ((AND|OR|NOT) relationalExpression)*;
+relationalExpression: 
+    additionExpression 
+        ((MAJOR |MINOR | EQUALS| DOUBLEEQUAL |MINOREQUALS|MAJOREQUALS | DIFF | DIFF2 | DOLAR) additionExpression)* ;
+additionExpression: 
+    multiplicationExpression 
+        ((PLUS|MINUS) multiplicationExpression)*;
+multiplicationExpression: 
+    unaryExpression 
+        ((MULT|DIV|POW) unaryExpression)*;
+unaryExpression: 
+   primary_ref  | (EXCLAMATION | NOT) expression;
+*/
+
+arguments
+    :   LPAREN expressionList RPAREN 
+    ;
+
+expressionList
+    : optionalExpression ( COMMA optionalExpression )*
+  ;
+
+optionalExpression
+  : expression?
+  ;
+
 arrayAccess
     :  ( LBRACK expressionList RBRACK )+
     ;
@@ -408,251 +219,198 @@ methodAccessLoop:
                     (':' (identifier) arguments? arrayAccess? )
                     
                 ;
-/*functionCall
-	:	arguments;	
-*/
-arguments
-    :   LPAREN expressionList RPAREN 
-    ;
-
-expressionList
-    : LBRACK? optionalExpression RBRACK? (LBRACK ? COMMA optionalExpression RBRACK?)*
-  ;
-
-optionalExpression
-  : expression?
-  ;
-expressionListComa:
-                      COMMA;
+primary_ref : (DEFAULT expression|COLONCOLON? primary);
+primary : 
+          LPAREN expressionList RPAREN arrayAccess?        #Parens
+        | AT? identifier arrayAccess        #VarArrayAccess
+        | identifier arguments  (arrayAccess? )  #Call
+        | identifier LPAREN RPAREN ':' identifier arguments  #ClassConstructor
+        | identifier arguments  methodAccessLoop*  #CallWithAtt
+        | AT? identifier arrayAccess? ( ':' identifier arrayAccess?)+     #ObjectAttribAccess
+        | identifier arrayAccess* methodAccessLoop+  #ObjectMethodAccess                
+        | AT? identifier        #Var             
+        | literal                   #lit        
+        | arrayOrBlockInitializer  #ArrayOrBlock
+        | AMPERSAND expression (arrayAccess | (DOT (arguments|expression)?)| methodAccessLoop|arguments)*   #MacroExecucao        
+        | ifFunctioncall #IfCall
+        | AT ASSUME identifier (':' identifier)* AS identifier     #Assume
+        | AT expression COMMA expression  atxCommand #NumberCHSay
+        ;
+atxCommand:
+    ((SAY IDENTIFIER)       |
+     (MSGET IDENTIFIER)     |
+     (MSDIALOG IDENTIFIER)  |
+     (COMBOBOX IDENTIFIER)  |
+     (CHECKBOX IDENTIFIER)  |
+     (VAR expression)       | 
+     (OF COLONCOLON? IDENTIFIER)        |
+     (BUTTON IDENTIFIER)    |
+     (SCROLLBOX IDENTIFIER)  |
+     (PROMPT expression)    |
+     (ACTION expression)    |
+     (MSPANEL COLONCOLON? IDENTIFIER)   |
+     (ITEMS expression)     |
+     (PIXEL           )     |
+     (PICTURE expression)   |  
+     (VALID expression)     |  
+     (SIZE expressionList)  |
+     (TO expressionList)    |
+     (STYLE expressionList) |
+     (FROM expressionList)  |
+     (FONT expression   )   |
+     (ON INIT expression)   |
+     (COLORS expressionList) |
+     (ON CHANGE expression)     
+    )+ IDENTIFIER*
+          ;
+arrayOrBlockInitializer
+    :   (LCURLY expressionList RCURLY arrayAccess? ) #arrayInitializer
+    |  (LCURLY PIPE blockParams? PIPE expressionList RCURLY arrayAccess?)  #blockInitializer
+    ;    
+blockParams
+	:	identifier (COMMA identifier )*
+	;
 literal	
 	:  NUMBER #LiteralNumber
 	|  STRING #LiteralStringDupla
 	|  STRINGSIMPLE  #LiteralStringSimples
 	|  TRUE  #LiteralLogical
 	|  FALSE #LiteralLogical
-    |  NIL #LiteralNil
-    |  ARROBA NIL #LiteralArrobaNil
+    |  NIL #LiteralNil    
     ;
-
 ifFunctioncall
 	:	IF LPAREN expression COMMA expression? COMMA expression? RPAREN  
 	;        
-//---------------------------------------------------------
-// STATEMENTs    
-//---------------------------------------------------------
-ifStatement 
-	: IF ifCondition crlf 
-		ifBlock
-	( ELSEIF elseIfCondition crlf elseIfBlock   )*
-	(ELSE crlf  
-	 elseBlock)*
-	(ENDIF|ENDIF_DOT|END| END IF |ENDI)
-	;    
-ifCondition : expression;
-elseIfCondition : expression;
-elseIfBlock : block?;
-elseBlock : block?;
-ifBlock : block?;    
-forStatement
-	:	
-		FOR forInit TO forToExpression (STEP expression)? crlf
-		     forBlock
-		((NEXT|END|ENDFOR) lostExpression )  crlf? 
-		;
-forToExpression : expression;
-forStepExpression : expression;
-forBlock : block?;
+chStatement:
+            paramType|classException |defineCh|activateCh|setsCh;
+               /*  (defineCh|(chIdentifier| arrobaDefine )
+                    (chIdentifier|(expression (COMMA expression)*) )+);
+  chIdentifier:
+          IDENTIFIER (DOT IDENTIFIER )* (AS|USER|WEB|TO|SELF|CLASS|DATA|FROM|NEXT|);
+  */
+  defineCh 
+      :  DEFINE atxCommand;
+  activateCh 
+      :  ACTIVATE atxCommand;
+  setsCh:
+            SET FILTER TO expression?;
+  
 
-lostExpression : expression?;
-
-doStatement
-	:	DO (whileStatement |docaseStatement) ;
-exitOrLoopStatement:
-    EXIT|LOOP;
-whileStatement
-	: WHILE whileCondition  crlf
-            whileBlock (ENDDO|END (DO|WHILE|(LPAREN RPAREN))?|'ENDD') crlf? 
-	
-	;
-whileCondition : expression;
-whileBlock : block?;
-docaseStatement 
-	: CASE crlf (  CASE caseCondition crlf caseBlock)+ (OTHERWISE otherWiseBlock )? ('ENDC'|ENDCASE|(END (CASE | DO)? ) ) crlf? 
-		;
-caseCondition : expression;
-caseBlock : block?;
-otherWiseBlock : block?;                    
+/*  arrobaDefine:
+                  AT expressionList ;*/
+ paramType:
+              PARAMTYPE NUMBER (VAR IDENTIFIER)? AS (ARRAY | BLOCK (EXPECTED)? | CHARACTER | DATE| NUMERIC| LOGICAL | OBJECT (CLASS IDENTIFIER )? )
+(COMMA (ARRAY| BLOCK |CHARACTER |DATE |NUMERIC|LOGICAL))?
+(CH_OR OBJECT CLASS expressionList)?
+ (MESSAGE expression)?  OPTIONAL?
+ (DEFAULT expression)?;
+ 
+ classException:
+          CLASSEXCEPTION  IDENTIFIER MESSAGE expression;
 //-----------------------------------------------    
-//Instruções para ler o CH do protheus
-//-----------------------------------------------    
-/*chStatement:
-               (chIdentifier | arrobaDefine               )
-                    (chIdentifier|(expression (COMMA expression)*) )+
-           ;*/
-arrobaDefine
-    :   ARROBA expressionList
-    ;
+// CHtokens
+//-----------------------------------------------
+SET         : 'SET';
+FILTER      : 'FILTER';
+COLORS     :    'COLORS';
+FONT       :    'FONT';
+CHECKBOX    :   'CHECKBOX';
+CHANGE      :   'CHANGE';
+VALID       :   'VALID';
+ON          :   'ON';
+INIT        :   'INIT';
+ACTIVATE    : 'ACTIVATE';
+STYLE      :   'STYLE';
+MSDIALOG    :  'MSDIALOG';
+SCROLLBOX   : 'SCROLLBOX';
+BUTTON      : 'BUTTON';
+PROMPT      : 'PROMPT';
+ACTION      : 'ACTION';
+MSPANEL    :   'MSPANEL';
+PICTURE     :   'PICTURE';
+MSGET           :       'MSGET';
+COMBOBOX        :   'COMBOBOX';
+ITEMS       :   'ITEMS';
+SIZE        :   'SIZE';
+OF          :   'OF';
+CH_OR       :   'OR'; 
+PIXEL       :   'PIXEL';
+SAY         :	'SAY';
+CLASSEXCEPTION :   'CLASSEXCEPTION';
+DEFAULT     :   'DEFAULT';
 
-forInit	:identifier
-        (ATTRIB_OPERATOR | EQUALS) expression 
-	;
-	
-/*asteriscoStatement:
-	(ASTERICO | MULT) (ASTERICO|chIdentifier|(literal ((COMMA|'^') literal)*) )* ;
-
-litleStringLost:
-	STRING|STRINGSIMPLE; 	
-    */	
+ARRAY       :	'ARRAY';
+BLOCK       :   'BLOCK';
+VAR         :	'VAR';
+CHARACTER   :   'CHARACTER';
+DATE        :	'DATE';
+EXPECTED    :   'EXPECTED';
+NUMERIC     :	'NUMERIC';
+LOGICAL     :   'LOGICAL';
+OBJECT      :   'OBJECT';
+OPTIONAL    :	'OPTIONAL';
+MESSAGE     :   'MESSAGE';
+PARAMTYPE   :   'PARAMTYPE';
 //-----------------------------------------------    
 // tokens
 //-----------------------------------------------
+  
+DEFINE  : 'DEFINE';
 MINOR 	: '<';
 MAJOR	: '>';
 EQUALS	: '=';
 MINOREQUALS 	: '<=';
-MAJOREQUALS		: '>=';
-DOUBLEEQUAL : '==';
-DIF1	: '!=';
-DIF2	: '<>';
-DIF3	: '#';
-CONTIDO : '$';
-PLUSPLUS            : '++';
-MINUSMINUS           : '--';
-PLUSEQUALS 			: '+=';    
+MAJOREQUALS	: '>=';
+DOUBLEEQUAL     : '==';
+PLUSPLUS        : '++';
+MINUSMINUS      : '--';
+
+EXCLAMATION     : '!';
+ASSIGNMENT      : ':=';
+DIFF            : '!=';
+DIFF2           : '<>';
+PLUSEQUALS 	: '+=';    
+MINUSEQUALS 	: '-=';    
+MULTEQUALS      : '*=';
+DIVEQUALS       : '/=';
 PLUS            : '+';
 MINUS           : '-';    
 MULT            : '*';
 DIV             : '/';
-POW				: '**';
+POW		: '**';
 PERC            : '%';
-ARROBA          : '@';
-ECOMERCIAL      : '&';
-BEGIN			: 'BEGIN';
-TRANSACTION : 	'TRANSACTION';
-SEQUENCE	:	'SEQUENCE';    
-BEGIN_SQL       : 'BEGINSQL' .*? 'ENDSQL'  -> channel(HIDDEN);
+
+AND		: '.AND.';
+OR		: '.OR.';
+NOT		: '.NOT.';
+
+TRUE		: '.T.';
+FALSE		: '.F.';	
+NIL             : 'NIL';
+DOLAR           : '$';
+
+
+SEMICOLON : ';';
+LCURLY  : '{';
+RCURLY  : '}';
+
+LPAREN	: '(';
+RPAREN	: ')';
+
+LBRACK	: '[';
+RBRACK	: ']';
+
+COMMA	: ',';
+DOT	: '.';
+COLONCOLON   : '::';
+COLON   : ':';
+
+AMPERSAND : '&';
+AT        : '@';
+
+PIPE    : '|';
+
 ALIASACCESS     :       '->';
-STEP		:	'STEP';    
-TO		:	'TO';    
-TRUE		:	'.T.';
-FALSE		:	'.F.';	
-NIL             :       'NIL';
-DEFINE			:	'#DEFINE';
-UNDEFINE			:	'#UNDEF';
-IFDEF           :       '#IFDEF';
-IFNDEF          :       '#IFNDEF';
-
-ELSEDEF         :       '#ELSE';
-ENDIFDEF        :       '#ENDIF';
-
-FOR		:	'FOR';
-NEXT		:	'NEXT';
-WHILE		:	'WHILE';
-DO              :       'DO';
-ELSEIF		:	'ELSEIF';
-IF		:	'IF';
-ELSE		:	'ELSE';
-ENDI		:	'ENDI';
-ENDIF		:	'ENDIF';
-ENDIF_DOT		:	'ENDIF.';
-//END_IF          :       'END IF';
-ENDDO           :       'ENDDO';
-ENDFOR           :       'ENDFOR';
-END		:	'END';
-EXTENDED	:	'EXTENDED';
-CASE		:	'CASE';
-ENDCASE		:	'ENDCASE';
-OTHERWISE	:	'OTHERWISE';
-EXIT		:	'EXIT';
-LOOP		:	'LOOP';
-LOCA		:	'LOCA';
-LOCAL		:	'LOCAL';
-PRIVATE		:	'PRIVATE';
-PUBLIC		:	'PUBLIC';
-STATIC		:	'STATIC';
-USER		:	'USER';
-WEB			:	'WEB';
-MAIN		:	'MAIN';
-FUNCTION	:	'FUNCTION';
-FUNCTIO		:	'FUNCTIO';
-PROCEDURE	: 	'PROCEDURE';
-SELF		:	'SELF';
-PROJECT		:   'PROJECT';
-TEMPLATE	:	'TEMPLATE';
-AND		:	'.AND.';
-OR		:	'.OR.';
-NOT		:	'.NOT.';
-
-DEFAULT		:	'DEFAULT';
-
-RETURN		:	'RETURN';
-ASSUME          :       'ASSUME';
-CLASS           :       'CLASS';
-ENDCLASS        :       'ENDCLASS';
-METHOD          :       'METHOD';
-DATA            :       'DATA';
-FROM            :       'FROM';
-C_HIDDEN		:		'HIDDEN';
-READONLY		:		'READONLY';
-//WSSTRUCT		:		'WSSTRUCT';
-//ENDWSSTRUCT		:		'ENDWSSTRUCT';
-//WSCLIENT        :       'WSCLIENT';
-//WSSERVICE       :       'WSSERVICE';
-//NAMESPACE       :       'NAMESPACE';
-//ENDWSCLIENT     :       'ENDWSCLIENT';
-//ENDWSSERVICE    :       'ENDWSSERVICE';
-//WSRESTFUL       :       'WSRESTFUL';
-//FORMAT          :       'FORMAT';
-//WSMETHOD        :       'WSMETHOD';
-//WSDATA          :       'WSDATA';
-//WSRECEIVE       :       'WSRECEIVE';
-//WSSEND          :       'WSSEND';
-DESCRIPTION     :       'DESCRIPTION';
-QSSTRUCT 		: 		'QSSTRUCT';
-QSMETHOD 		: 		'QSMETHOD';
-MODULE	 		: 		'MODULE';
-INIT	 		: 		'INIT';
-AS              :       'AS';
-OF              :       'OF';
-PRODUCES        :       'PRODUCES';
-OPTIONAL        :       'OPTIONAL';
-//WSSYNTAX        :       'WSSYNTAX';
-//RESPONSE        :       'RESPONSE';
-REQUEST         :       'REQUEST';
-QUERYPARAM      :       'QUERYPARAM';
-WSREST          :       'WSREST';
-CAMELCASE       :       'CAMELCASE';
-PATHPARAM       :       'PATHPARAM';
-GET				:		'GET';
-POST			:		'POST';
-PUT				:		'PUT';
-DELETE			:		'DELETE';
-BYREF			:		'BYREF';
-//BEGIN           :       'BEGIN';
-//BIRT
-DATASET			: 		'DATASET';
-PROCESS			:		'PROCESS';	
-//COLUMNS			:		'COLUMNS';
-//COLUMN			:		'COLUMN';
-TITLE			:		'TITLE';
-PERGUNTE		:		'PERGUNTE';
-PATH			:		'PATH';
-//COMMAND			:	'#COMMAND';
-//XCOMMAND		:	'#XCOMMAND';
-
-LPAREN	: '(' ;
-
-RPAREN	: ')'  ;
-
-LBRACK	: '['  ;
-
-RBRACK	: ']'  ;
-INCLUDE	:	'#''INCLUDE';
-
-COMMA		:	',';
-DOT			:	'.';
-ATTRIB_OPERATOR
-	:	':=';
 
 NUMBER
     :   ('0'..'9')+ ('.'  ('0'..'9')+ )?
@@ -663,79 +421,89 @@ NUMBER
 fragment
 DIGITS : ( '0' .. '9' )+ ;
 
+ASSUME :    'ASSUME';
+//-----------------------------------------------    
+// Types Tokens
+//-----------------------------------------------
+
+LOCAL		:	'LOCAL';
+PRIVATE		:	'PRIVATE';
+PUBLIC		:	'PUBLIC';
+STATIC		:	'STATIC';
+USER		:	'USER';
+WEB		:	'WEB';
+MAIN		:	'MAIN';
+PROJECT		:       'PROJECT';
+TEMPLATE	:	'TEMPLATE';
+AS              :       'AS';
+//-----------------------------------------------    
+// StatementTokens
+//-----------------------------------------------
+
+FOR		:	'FOR';
+NEXT		:	'NEXT';
+STEP		:	'STEP';    
+TO              :       'TO';
+LOOP		:	'LOOP';
+WHILE		:	'WHILE';
+DO              :       'DO';
+ELSEIF		:	'ELSEIF';
+IF		:	'IF';
+ELSE		:	'ELSE';
+ENDIF		:	'ENDIF';
+ENDDO           :       'ENDDO';
+ENDFOR          :       'ENDFOR';
+END		:	'END';
+EXIT		:	'EXIT';
+CASE		:	'CASE';
+ENDCASE		:	'ENDCASE';
+OTHERWISE	:	'OTHERWISE';
+FUNCTION	:	'FUNCTION';
+RETURN		:	'RETURN';
+//-----------------------------------------------    
+// Class Tokens
+//-----------------------------------------------
+CLASS           :       'CLASS';
+ENDCLASS        :       'ENDCLASS';
+METHOD          :       'METHOD';
+DATA            :       'DATA';
+FROM            :       'FROM';
+SELF            :       'SELF';
+//-----------------------------------------------    
+// PreProcess Tokens
+//-----------------------------------------------
+INCLUDE	:	'#INCLUDE';
+IFDEF	:	'#IFDEF';
+UNDEFINE:	'#UNDEF';
+IFNDEF  :       '#IFNDEF';
+PDEFINE	:	'#DEFINE';
+ENDIFDEF:	'#ENDIF';
+ELSEDEF:	'#ELSE';
+
     
 IDENTIFIER	:	( 'a' .. 'z' | 'A' .. 'Z' | '_')
         ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* ;
    
-
 COMMENT
     :   '/*' .*? '*/'  -> channel(HIDDEN)
     ;
 LINE_COMMENT:   '//' ~('\n'|'\r')*  -> channel(HIDDEN);
-LINE_COMMENT_EE:   '&&' ~('\n'|'\r')*  -> channel(HIDDEN);
-//LINE_COMMENT_BIZARRO:   '*Ú' ~('\n'|'\r')*  -> channel(HIDDEN);
-//LINE_COMMENT_BIZARRO2:   '*³' ~('\n'|'\r')*  -> channel(HIDDEN);
-//LINE_COMMENT_BIZARRO3:   '*À' ~('\n'|'\r')*  -> channel(HIDDEN);
-//LINE_COMMENT_BIZARRO4:   '*--' ~('\n'|'\r')*  -> channel(HIDDEN);
-//LINE_COMMENT_BIZARRO5:   '*/' ~('\n'|'\r')*  -> channel(HIDDEN);
-//LINE_COMMENT_BIZARRO6:   '*==' ~('\n'|'\r')*  -> channel(HIDDEN);
-//LINE_COMMENT_BIZARRO7:   '*#' ~('\n'|'\r')*  -> channel(HIDDEN);
 
-/* 
-ASTERICO:
-	'*' '*'*;
-   */
 STRING
-    :  '"' ( ~('"'|'\n') )* '"'?
-    ;
+    :  '"' ( ~('"'|'\n') )* '"'? ;
 STRINGSIMPLE
-    :  '\'' (  ~('\''|'\n') )* '\''?
-    ;
-//------------------------------------------------------------
-//Em davpl o CRLF ajuda a determina o fim dos expression
+    :  '\'' (  ~('\''|'\n') )* '\''?;
 
 crlf:
         (CRLF+|';');
 crlfEmpty:
         (CRLF+|';');
+
 CRLF
   : ((('\r')? '\n' ))  
   ;
 
 WS  :   ( ' ' | '\t')+  -> skip;
-/*
-INVALID_CHAR : '�' -> skip;
-INVALID_CHAR_1 : '' -> skip;
-INVALID_CHAR_2 : ' ' -> skip;
-INVALID_CHAR_3 :'\u0001' -> skip;
-INVALID_CHAR_4 :'\u0002' -> skip;
-INVALID_CHAR_14 :'\u0003' -> skip;
-INVALID_CHAR_17 :'\u001f' -> skip;
-INVALID_CHAR_5 :'§' -> skip;
-INVALID_CHAR_6 :'¢' -> skip;
-INVALID_CHAR_7 :'£' -> skip;
-INVALID_CHAR_8 :'À' -> skip;
-INVALID_CHAR_9 :'ß' -> skip;
-INVALID_CHAR_10 :'±' -> skip;
-INVALID_CHAR_11 :'Ä' -> skip;
-INVALID_CHAR_12 :'Á' -> skip;
-INVALID_CHAR_13 :'Ù' -> skip;
-INVALID_CHAR_16 :'`' -> skip;
-INVALID_CHAR_18 :'»' -> skip;
-INVALID_CHAR_19 :'¿' -> skip;
-*/
 
-/*
- * Quando le o ppo não tem mais ; como escaped
 CRLF_ESCAPED
   : (';' ( ' ' | '\t')*(  ('//'|'&&') ~('\n'|'\r')*   )? ('\r')?'\n' )-> channel(HIDDEN);
-  
-  *  
-  */
-/*
-CRLF_ESCAPED
-  : (DOT_COMA  ('\r')?'\n')-> skip;
-*/
-ErrorChar
-   : .
-   ;
